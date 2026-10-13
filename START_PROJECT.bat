@@ -3,8 +3,8 @@ title LifeBlood - Smart Blood Management System
 color 0C
 echo ==========================================================
 echo    LifeBlood - Smart Blood Management System
-echo    B.Sc. Computer Science Final Year Project
-echo    Author: V. SARAVANAPANDI (Reg No: C3S40228)
+echo    Enterprise Healthcare Transfusion Network
+echo    Author: V. Saravanapandi
 echo ==========================================================
 echo.
 echo Starting backend server on http://localhost:5000 ...

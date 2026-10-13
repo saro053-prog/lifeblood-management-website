@@ -1,16 +1,24 @@
-# LifeBlood - Smart Blood Management System
+# LifeBlood - Smart Blood Management & Transfusion Network
 
-A production-ready, full-stack intelligent blood donation and transfusion coordination platform connecting verified donors, accredited regional blood banks, and critical hospital trauma centers with real-time inventory tracking, clinical compatibility calculations, and emergency SOS broadcasting.
+[![Node.js](https://img.shields.io/badge/Node.js-v18+-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
+[![Express.js](https://img.shields.io/badge/Express.js-4.x-000000?logo=express&logoColor=white)](https://expressjs.com/)
+[![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?logo=mysql&logoColor=white)](https://www.mysql.com/)
+[![Three.js](https://img.shields.io/badge/Three.js-WebGL-black?logo=three.js&logoColor=white)](https://threejs.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
+A production-ready, full-stack intelligent blood donation and emergency transfusion coordination platform connecting verified volunteer donors, accredited regional blood banks, and hospital trauma centers in real time with WebGL 3D simulations, clinical ABO compatibility visualizers, and an emergency SOS dispatch engine.
 
 ---
 
-## Overview
+## 📌 Overview
 
-**LifeBlood** is an intelligent medical healthcare web platform built to eliminate life-threatening delays in emergency blood procurement. The platform centralizes blood bank inventories across multiple facilities, provides an interactive ABO/Rh transfusion compatibility visualizer, enables volunteer donor registration, and features a rapid SOS dispatch engine with automated tracking IDs. LifeBlood features a high-performance modern UI rendered with WebGL (Three.js) interactive cell simulations and a robust Node.js/Express REST backend backed by relational MySQL.
+**LifeBlood** is an intelligent medical healthcare web platform built to eliminate life-threatening delays in emergency blood procurement. The platform centralizes blood bank inventories across multiple facilities, provides an interactive ABO/Rh transfusion compatibility visualizer, enables volunteer donor registration, and features a rapid SOS dispatch engine with automated tracking IDs. 
+
+The application utilizes a high-performance modern UI rendered with WebGL (Three.js) interactive cell simulations and a robust Node.js/Express REST backend backed by relational MySQL with connection pooling.
 
 ---
 
-## Features
+## 🚀 Features
 
 - **Futuristic Medical UI & 3D Interactive Experience**:
   - Three.js WebGL canvas simulating floating erythrocytes (red blood cells) and glowing plasma micro-particles reacting to mouse movement and scroll depth.
@@ -39,42 +47,36 @@ A production-ready, full-stack intelligent blood donation and transfusion coordi
 
 ---
 
-## Technologies Used
+## 🛠️ Technologies Used
 
-- **Frontend**:
-  - HTML5
-  - CSS3 (Responsive Design, Glassmorphism, CSS Variables, Animations)
-  - JavaScript (ES6+)
-  - Bootstrap 5 (Responsive Grid and Modal Components)
-  - Three.js (WebGL 3D dynamic blood cell simulation)
-  - GSAP (Fluid timeline animations)
-  - FontAwesome 6 (Vector icons)
-- **Backend**:
-  - Node.js & Express.js (High-concurrency RESTful API server)
-  - Python 3 & Flask (Alternative micro-framework backend)
-  - Helmet & CORS (HTTP header security & cross-origin policies)
-  - Morgan (HTTP request logger)
-- **Database & Storage**:
-  - MySQL 8.0 (Relational schema with connection pooling via `mysql2/promise`)
-  - Parameterized queries to prevent SQL injection vulnerabilities
-- **Authentication & Security**:
-  - JSON Web Tokens (JWT) for stateless authenticated sessions
-  - bcryptjs (Cost factor 10 password hashing)
-  - dotenv (Secure environment variable management)
+### Frontend
+- **HTML5 & CSS3**: Responsive Design, Glassmorphism, CSS Custom Properties, Keyframe Animations.
+- **JavaScript (ES6+)**: Asynchronous client-side routing, modals, dynamic filters.
+- **Bootstrap 5**: Responsive layout grid and modal components.
+- **Three.js**: WebGL 3D dynamic cellular particle simulation.
+- **GSAP**: Timeline micro-animations.
+- **FontAwesome 6**: Vector icons.
+
+### Backend
+- **Node.js & Express.js**: High-concurrency RESTful API server.
+- **Python 3 & Flask**: Alternative micro-framework backend (`app.py`).
+- **Helmet & CORS**: HTTP header hardening & security policies.
+- **Morgan**: HTTP request logger.
+
+### Database & Security
+- **MySQL 8.0**: Relational schema with connection pooling via `mysql2/promise`.
+- **JSON Web Tokens (JWT)**: Stateless session tokens.
+- **bcryptjs**: Salted password hashing (cost factor 10).
+- **dotenv**: Environment variable isolation.
 
 ---
 
-## Project Structure
+## 📁 Project Structure
 
 ```
 lifeblood-management-website/
 ├── database/
 │   └── schema.sql                 # Relational MySQL DDL schema and initial seed records
-├── scripts/
-│   ├── setup-db.js                # Automated DB creation, bcrypt hashing, and migrations
-│   ├── test_qa.py                 # Automated API and integration test suite
-│   ├── capture_report_screenshots.js # Automated screenshot utility
-│   └── build_final_pdf.js         # Academic report compilation script
 ├── server/
 │   ├── config/
 │   │   └── db.js                  # MySQL connection pool with resilient fallback
@@ -98,6 +100,13 @@ lifeblood-management-website/
 │   │   └── screenshots/           # High-resolution application screenshots
 │   ├── index.html                 # Master single-page application storefront
 │   └── login.html                 # Donor, Hospital, and Administrator portal
+├── docs/
+│   ├── architecture.md           # System architecture & ER diagram documentation
+│   └── api-documentation.md      # Complete REST API reference
+├── scripts/
+│   ├── setup-db.js                # Automated DB creation, bcrypt hashing, and migrations
+│   ├── test_qa.py                 # Automated API and integration test suite
+│   └── capture_report_screenshots.js # Automated screenshot utility
 ├── app.py                         # Alternative Python Flask backend server
 ├── package.json                   # NPM dependencies and project scripts
 ├── package-lock.json              # Deterministic NPM lockfile
@@ -109,7 +118,7 @@ lifeblood-management-website/
 
 ---
 
-## Installation & Setup
+## ⚙️ Installation & Setup
 
 ### 1. Prerequisites
 - Node.js (v18+) and npm installed
@@ -170,7 +179,7 @@ python app.py
 
 ---
 
-## Usage
+## 🚦 Usage
 
 1. Open your browser and navigate to:
    - Portal: [http://localhost:5000](http://localhost:5000)
@@ -183,7 +192,7 @@ python app.py
 
 ---
 
-## Screenshots
+## 📸 Screenshots
 
 | Portal Hero & Navigation | Live Blood Inventory Grid |
 |:---:|:---:|
@@ -199,7 +208,7 @@ python app.py
 
 ---
 
-## Future Improvements
+## 🔮 Future Improvements
 
 - [ ] GPS-enabled real-time ambulance dispatch integration.
 - [ ] Automated SMS / WhatsApp alerts to nearby matched donors when an emergency SOS is triggered.
@@ -209,8 +218,9 @@ python app.py
 
 ---
 
-## Author
+## 👤 Author
 
 **V. Saravanapandi**  
 - GitHub: [@saro053-prog](https://github.com/saro053-prog)
-- Email: [saro77057@gmail.com](mailto:saro77057@gmail.com)
+- LinkedIn: [https://www.linkedin.com/in/saravana-pandi-6133a5344](https://www.linkedin.com/in/saravana-pandi-6133a5344)
+- Email: [msaravana791@gmail.com](mailto:msaravana791@gmail.com)
