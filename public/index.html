@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LifeBlood – Smart Blood Management System | AI & Real-Time Transfusion Network</title>
+  <meta name="description" content="LifeBlood is an intelligent full-stack blood management platform connecting donors, blood banks, and critical trauma centers with machine learning demand forecasting.">
+  <meta name="keywords" content="blood bank, blood donation, emergency transfusion, blood inventory, hospital blood dispatch, donor portal, machine learning blood forecast">
+  <meta name="author" content="LifeBlood Healthcare Systems">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="http://localhost:5000">
+
+  <!-- OpenGraph Metadata for Social & Search Previews -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="LifeBlood Transfusion Network">
+  <meta property="og:title" content="LifeBlood – Smart Blood Management System">
+  <meta property="og:description" content="Fast, mobile-friendly, secure, and SEO-ready blood management network connecting donors, blood banks, and hospitals in real time.">
+  <meta property="og:url" content="http://localhost:5000">
+
+  <!-- Twitter Card Metadata -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="LifeBlood – Smart Blood Management System">
+  <meta name="twitter:description" content="Fast, mobile-friendly, secure, and SEO-ready blood management network.">
+
+  <!-- Schema.org JSON-LD Structured Data (MedicalOrganization) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MedicalOrganization",
+    "name": "LifeBlood Smart Blood Management System",
+    "url": "http://localhost:5000",
+    "description": "Intelligent full-stack blood transfusion and donor management platform.",
+    "medicalSpecialty": "TransfusionMedicine",
+    "availableService": [
+      {
+        "@type": "MedicalProcedure",
+        "name": "Emergency Blood Donation & Transfusion Coordination"
+      },
+      {
+        "@type": "MedicalProcedure",
+        "name": "Predictive Blood Demand ML Forecasting"
+      }
+    ]
+  }
+  </script>
+  
+  <!-- Favicon / Icon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🩸</text></svg>">
+
+  <!-- Google Fonts: Space Grotesk, Outfit & Playfair Display (Serif) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap 5 CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Custom Design System -->
+  <link rel="stylesheet" href="/css/styles.css?v=3.6">
+</head>
+<body>
+
+  <!-- Custom Animated Cursor Experience (Desktop) -->
+  <div class="custom-cursor-dot"></div>
+  <div class="custom-cursor-outline"></div>
+
+  <!-- ==========================================================
+       1. PREMIUM NAVIGATION BAR
+       ========================================================== -->
+  <nav class="navbar navbar-expand-lg navbar-custom">
+    <div class="container">
+      <a class="brand-logo" href="#">
+        <div class="brand-icon-box">
+          <i class="fas fa-heartbeat text-white fa-lg"></i>
+        </div>
+        <div class="brand-name">Life<span>Blood</span></div>
+      </a>
+
+      <div class="d-flex align-items-center gap-2 order-lg-3">
+        <button type="button" class="btn btn-sm btn-sos btn-open-sos" id="btn-open-sos" data-action="open-sos">
+          <i class="fas fa-ambulance me-1"></i> SOS Request
+        </button>
+        <div id="nav-auth-container">
+          <a href="/login" class="btn btn-sm btn-glass btn-open-login" data-action="open-login">
+            <i class="fas fa-lock me-1"></i> Sign In
+          </a>
+        </div>
+        <button class="navbar-toggler border-0 text-white ms-1" type="button" data-bs-toggle="collapse" data-bs-target="#navContent">
+          <i class="fas fa-bars fa-lg"></i>
+        </button>
+      </div>
+
+      <div class="collapse navbar-collapse order-lg-2" id="navContent">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-1">
+          <li class="nav-item"><a class="nav-link-custom" href="#inventory">Live Inventory</a></li>
+          <li class="nav-item"><a class="nav-link-custom" href="#compatibility">Compatibility</a></li>
+          <li class="nav-item"><a class="nav-link-custom" href="#donors">Find Donors</a></li>
+          <li class="nav-item"><a class="nav-link-custom" href="#banks">Blood Banks</a></li>
+          <li class="nav-item"><a class="nav-link-custom" href="#how-it-works">How It Works</a></li>
+          <li class="nav-item"><a class="nav-link-custom" href="#stats">Impact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ==========================================================
+       2. CINEMATIC HERO SECTION WITH 3D CANVAS
+       ========================================================== -->
+  <section class="hero-section" id="hero">
+    <!-- WebGL 3D Floating Erythrocytes Canvas -->
+    <canvas id="canvas-hero-3d"></canvas>
+    <div class="hero-backdrop-gradient"></div>
+
+    <div class="container hero-content">
+      <div class="row align-items-center gy-5">
+        <div class="col-lg-7">
+          <div class="badge-futuristic mb-3">
+            <span class="pulse-dot"></span>
+            NEXT-GEN SMART BLOOD TRANSFUSION NETWORK
+          </div>
+          <h1 class="hero-title">
+            Donate Blood.<br>
+            <span class="gradient-text-blood">Save Lives.</span>
+          </h1>
+          <p class="hero-description">
+            “Every Drop. Every Life. Connected.”<br>
+            Connect verified donors, multi-regional blood banks, and critical trauma centers through one unified, intelligent blood management platform.
+          </p>
+          <div class="d-flex flex-wrap gap-3 mb-5">
+            <button class="btn btn-magnetic btn-crimson px-4 py-3 btn-open-donor-reg">
+              <i class="fas fa-hand-holding-medical fa-lg"></i> Become a Donor
+            </button>
+            <button class="btn btn-magnetic btn-cyan-outline px-4 py-3 btn-open-sos">
+              <i class="fas fa-tint fa-lg"></i> Request Blood
+            </button>
+            <a href="#compatibility" class="btn btn-magnetic btn-glass px-4 py-3">
+              <i class="fas fa-dna fa-lg"></i> Compatibility Matrix
+            </a>
+          </div>
+
+          <!-- Hero Metric Counters -->
+          <div class="d-flex flex-wrap gap-3">
+            <div class="hero-stat-card">
+              <div class="hero-stat-val text-danger" id="hero-stat-lives">1,450+</div>
+              <div class="hero-stat-lbl">Lives Saved</div>
+            </div>
+            <div class="hero-stat-card">
+              <div class="hero-stat-val text-info" id="hero-stat-donors">850+</div>
+              <div class="hero-stat-lbl">Active Donors</div>
+            </div>
+            <div class="hero-stat-card">
+              <div class="hero-stat-val text-success">24 / 7</div>
+              <div class="hero-stat-lbl">Emergency Dispatch</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-5 text-center d-none d-lg-block">
+          <!-- Floating Interactive Holographic Card -->
+          <div class="glass-panel p-4 text-start position-relative">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <div class="d-flex align-items-center gap-2">
+                <span class="pulse-dot cyan"></span>
+                <span class="text-white small fw-bold">REAL-TIME TELEMETRY</span>
+              </div>
+              <span class="badge bg-danger" style="font-size: 0.8rem; font-weight: 700;">LIVE DISPATCH</span>
+            </div>
+            <div class="p-3 bg-dark rounded-3 border border-secondary mb-3">
+              <div class="d-flex justify-content-between text-white fw-bold mb-2" style="font-size: 0.85rem; letter-spacing: 0.05em;">
+                <span>CRITICAL INVENTORY STATUS</span>
+                <span class="text-danger fw-bold"><i class="fas fa-exclamation-circle me-1"></i>HIGH ALERT</span>
+              </div>
+              <h4 class="text-white mb-1 fw-bold">AB- Negative Supply Low</h4>
+              <p class="text-white mb-0 mt-2" style="font-size: 0.95rem; line-height: 1.5;">Priority dispatch enabled across Central Chennai & Bengaluru networks.</p>
+            </div>
+            <div class="d-flex justify-content-between align-items-center text-white" style="font-size: 0.92rem; font-weight: 600;">
+              <span><i class="fas fa-server text-success me-1"></i> MySQL 8.0 Cluster Active</span>
+              <a href="#inventory" class="text-cyan text-decoration-none fw-bold">Inspect Inventory &rarr;</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+       3. LIVE BLOOD AVAILABILITY SECTION (DATABASE-DRIVEN)
+       ========================================================== -->
+  <section class="section-padding" id="inventory">
+    <div class="container">
+      <div class="d-flex flex-wrap justify-content-between align-items-end mb-4">
+        <div>
+          <span class="section-tag">LIVE TELEMETRY & INVENTORY</span>
+          <h2 class="section-title">Blood Group Availability</h2>
+          <p class="section-subtitle">
+            Directly connected to regional hospital databases and central blood repositories. Units automatically calibrate with incoming donations and surgical requisitions.
+          </p>
+        </div>
+        <div>
+          <span class="badge-futuristic" id="db-source-tag">
+            <span class="pulse-dot"></span> Loading Database...
+          </span>
+        </div>
+      </div>
+
+      <!-- Real-Time Blood Cards Grid (Rendered Dynamically) -->
+      <div class="blood-group-grid" id="inventory-cards-grid">
+        <!-- Rendered by app.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+       4. INTERACTIVE BLOOD GROUP COMPATIBILITY MATRIX
+       ========================================================== -->
+  <section class="section-padding bg-secondary bg-opacity-25" id="compatibility">
+    <div class="container">
+      <div class="text-center max-w-700 mx-auto mb-5">
+        <span class="section-tag">CLINICAL IMMUNOLOGY</span>
+        <h2 class="section-title">Blood Group Compatibility Matrix</h2>
+        <p class="section-subtitle mx-auto">
+          Select any blood group below to instantly calculate ABO and Rh-factor compatibility. Animate reciprocal donation pathways and clinical transfusion guidelines.
+        </p>
+      </div>
+
+      <div class="glass-panel matrix-container">
+        <!-- Selector Pills -->
+        <div class="d-flex justify-content-center">
+          <div class="selector-pills" id="matrix-pills-container">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+        <div class="row g-4 mt-2">
+          <!-- Transfusion Profile -->
+          <div class="col-lg-4">
+            <div class="compat-box h-100">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="compat-box-title mb-0" id="compat-selected-title">Blood Group: O-</h4>
+                <span class="compat-rarity-pill" id="compat-rarity-badge">Universal Donor</span>
+              </div>
+              <p class="compat-description-text mb-4" id="compat-description">
+                O- is the Universal Donor for red blood cells. In critical trauma scenarios before blood cross-matching is complete, O- blood is infused to save precious minutes.
+              </p>
+              <div class="border-top border-secondary pt-3 mt-auto">
+                <button class="btn btn-crimson w-100 btn-open-donor-reg py-3 fw-bold" style="font-size: 1.05rem;">
+                  <i class="fas fa-heart me-2"></i> Register as this Blood Group
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Can Give To -->
+          <div class="col-lg-4">
+            <div class="compat-box h-100">
+              <div class="d-flex align-items-center gap-2 mb-3">
+                <i class="fas fa-arrow-circle-up text-danger fa-xl"></i>
+                <h5 class="compat-box-title mb-0">Can Donate Red Cells To</h5>
+              </div>
+              <p class="compat-subtitle mb-3">Compatible recipient blood groups:</p>
+              <div class="d-flex flex-wrap" id="compat-give-targets">
+                <!-- Dynamically populated -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Can Receive From -->
+          <div class="col-lg-4">
+            <div class="compat-box h-100">
+              <div class="d-flex align-items-center gap-2 mb-3">
+                <i class="fas fa-arrow-circle-down text-info fa-xl"></i>
+                <h5 class="compat-box-title mb-0">Can Receive Red Cells From</h5>
+              </div>
+              <p class="compat-subtitle mb-3">Safe donor blood groups:</p>
+              <div class="d-flex flex-wrap" id="compat-receive-targets">
+                <!-- Dynamically populated -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+       5. FIND A DONOR SECTION (SEARCH & DIRECTORY)
+       ========================================================== -->
+  <section class="section-padding" id="donors">
+    <div class="container">
+      <div class="d-flex flex-wrap justify-content-between align-items-end mb-4">
+        <div>
+          <span class="section-tag">VERIFIED VOLUNTEER NETWORK</span>
+          <h2 class="section-title">Find a Blood Donor</h2>
+          <p class="section-subtitle">
+            Search active, verified blood donors in your city. Direct contact channels open for immediate clinical requirements.
+          </p>
+        </div>
+        <button class="btn btn-magnetic btn-cyan-outline btn-open-donor-reg">
+          <i class="fas fa-user-plus me-1"></i> Register as Volunteer
+        </button>
+      </div>
+
+      <!-- Filter Controls -->
+      <div class="glass-panel filter-bar">
+        <div class="row g-3 align-items-center">
+          <div class="col-md-5">
+            <div class="input-group">
+              <span class="input-group-text bg-dark border-secondary"><i class="fas fa-search text-cyan"></i></span>
+              <input type="text" class="form-control input-futuristic" id="filter-donor-city" placeholder="Filter by City or Locality (e.g. Chennai, Bengaluru, Coimbatore)...">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <select class="form-select input-futuristic" id="filter-donor-bg">
+              <option value="">All Blood Groups (Any)</option>
+              <option value="A+">A+ Positive</option>
+              <option value="A-">A- Negative</option>
+              <option value="B+">B+ Positive</option>
+              <option value="B-">B- Negative</option>
+              <option value="O+">O+ Positive</option>
+              <option value="O-">O- Negative</option>
+              <option value="AB+">AB+ Positive</option>
+              <option value="AB-">AB- Negative</option>
+            </select>
+          </div>
+          <div class="col-md-3 text-end">
+            <button type="button" class="btn btn-magnetic btn-glass w-100" data-action="refresh-donors">
+              <i class="fas fa-sync-alt me-1"></i> Refresh Donors
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Donors Cards Grid -->
+      <div class="row g-4 mt-2" id="donors-list-grid">
+        <!-- Rendered by app.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+       6. EMERGENCY SOS BANNER
+       ========================================================== -->
+  <section class="container my-5">
+    <div class="sos-banner text-white">
+      <div class="row align-items-center gy-4">
+        <div class="col-lg-8">
+          <div class="badge bg-danger mb-2 px-3 py-2 fw-bold" style="letter-spacing: 0.08em;">
+            <i class="fas fa-exclamation-triangle me-1"></i> CRITICAL TRANSFUSION EMERGENCY
+          </div>
+          <h2 class="display-6 fw-bold mb-2">Need Blood Urgently for Surgery or Trauma?</h2>
+          <p class="text-white mb-0 fs-6" style="line-height: 1.65;">
+            Broadcast an instant emergency SOS alert across nearby verified donors and connected hospital blood banks. Automated dispatch prioritizes immediate clinical routing.
+          </p>
+        </div>
+        <div class="col-lg-4 text-lg-end">
+          <button class="btn btn-magnetic btn-crimson btn-lg px-4 py-3 btn-open-sos" style="box-shadow: 0 0 30px rgba(230, 57, 70, 0.7);">
+            <i class="fas fa-bullhorn fa-lg me-2"></i> Launch SOS Request
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+       7. HOW LIFEBLOOD WORKS
+       ========================================================== -->
+  <section class="section-padding bg-secondary bg-opacity-25" id="how-it-works">
+    <div class="container">
+      <div class="text-center max-w-700 mx-auto mb-5">
+        <span class="section-tag">STREAMLINED MEDICAL WORKFLOW</span>
+        <h2 class="section-title">How LifeBlood Works</h2>
+        <p class="section-subtitle mx-auto">
+          An automated 4-step ecosystem engineered for rapid response, donor safety, and absolute inventory traceability.
+        </p>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-3">
+          <div class="glass-panel p-4 h-100">
+            <div class="text-danger display-5 fw-bold mb-3">01</div>
+            <h4 class="text-white mb-2 fw-bold">Register & Verify</h4>
+            <p class="card-desc mb-0">
+              Donors complete a digital medical questionnaire and register their blood group, location, and donation frequency.
+            </p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="glass-panel p-4 h-100">
+            <div class="text-cyan display-5 fw-bold mb-3">02</div>
+            <h4 class="text-white mb-2 fw-bold">Intelligent Match</h4>
+            <p class="card-desc mb-0">
+              When a patient or trauma hospital requests units, our matching algorithm routes to compatible local donors and banks.
+            </p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="glass-panel p-4 h-100">
+            <div class="text-warning display-5 fw-bold mb-3">03</div>
+            <h4 class="text-white mb-2 fw-bold">Safe Transfusion</h4>
+            <p class="card-desc mb-0">
+              Appointments are tracked in real-time. Donated blood undergoes rigorous testing and cold-chain transit tracking.
+            </p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="glass-panel p-4 h-100">
+            <div class="text-success display-5 fw-bold mb-3">04</div>
+            <h4 class="text-white mb-2 fw-bold">Lives Saved</h4>
+            <p class="card-desc mb-0">
+              Patients receive life-saving units in critical hours. Donors earn Digital Hero Passes and verified impact logs.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+       8. REGIONAL BLOOD BANKS DIRECTORY
+       ========================================================== -->
+  <section class="section-padding" id="banks">
+    <div class="container">
+      <div class="d-flex flex-wrap justify-content-between align-items-end mb-4">
+        <div>
+          <span class="section-tag">ACCREDITED FACILITIES</span>
+          <h2 class="section-title">Certified Regional Blood Banks</h2>
+          <p class="section-subtitle">
+            Authorized cold-chain storage facilities, government hospitals, and Red Cross transfusion institutes.
+          </p>
+        </div>
+      </div>
+
+      <div class="row g-4" id="blood-banks-grid">
+        <!-- Rendered by app.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+       9. DONOR PORTAL & DIGITAL DONOR ID PASS GENERATOR
+       ========================================================== -->
+  <section class="section-padding bg-secondary bg-opacity-25" id="donor-pass">
+    <div class="container">
+      <div class="row g-5 align-items-center">
+        <div class="col-lg-6">
+          <span class="section-tag">DIGITAL CREDENTIALS</span>
+          <h2 class="section-title">Your LifeBlood Hero Pass</h2>
+          <p class="text-white mb-4" style="font-size: 1.05rem; line-height: 1.65;">
+            Every registered donor receives a verifiable Digital LifeBlood Card complete with clinical blood group verification, emergency contact info, and donation milestones.
+          </p>
+          <div class="d-flex flex-column gap-3 mb-4">
+            <div class="d-flex align-items-center gap-3">
+              <i class="fas fa-shield-alt text-success fa-lg"></i>
+              <span class="text-white">Tamper-proof unique donor ID number</span>
+            </div>
+            <div class="d-flex align-items-center gap-3">
+              <i class="fas fa-award text-warning fa-lg"></i>
+              <span class="text-white">Priority access for family emergency requisitions</span>
+            </div>
+            <div class="d-flex align-items-center gap-3">
+              <i class="fas fa-calendar-check text-info fa-lg"></i>
+              <span class="text-white">Automated 90-day healthy donation interval reminders</span>
+            </div>
+          </div>
+          <button class="btn btn-magnetic btn-crimson btn-open-donor-reg">
+            <i class="fas fa-id-card me-1"></i> Generate My Hero Pass
+          </button>
+        </div>
+
+        <div class="col-lg-6">
+          <div id="digital-card-preview">
+            <!-- Default Sample Pass Preview -->
+            <div class="donor-id-card">
+              <div class="d-flex justify-content-between align-items-start">
+                <div class="d-flex align-items-center gap-2">
+                  <div class="brand-icon-box" style="width: 32px; height: 32px;">
+                    <i class="fas fa-heartbeat text-white" style="font-size: 0.9rem;"></i>
+                  </div>
+                  <strong style="font-size: 1.1rem; letter-spacing: 0.05em;">LIFEBLOOD</strong>
+                </div>
+                <span class="badge-futuristic" style="font-size: 0.8rem;">HERO PASS</span>
+              </div>
+
+              <div class="donor-id-chip mt-3"></div>
+              <div class="donor-id-blood">O-</div>
+
+              <div class="mt-2">
+                <div class="text-cyan fw-bold" style="font-size: 0.9rem; letter-spacing: 0.05em; text-transform: uppercase;">Universal Life Donor</div>
+                <h4 class="text-white mb-2 fw-bold" style="font-size: 1.35rem;">Deepa Lakshmi</h4>
+              </div>
+
+              <div class="d-flex justify-content-between align-items-center pt-2 border-top border-secondary mt-3" style="font-size: 0.9rem;">
+                <div>
+                  <span class="text-white d-block" style="font-size: 0.82rem; font-weight: 700; letter-spacing: 0.04em;">LOCATION</span>
+                  <strong class="text-white">Bengaluru</strong>
+                </div>
+                <div>
+                  <span class="text-white d-block" style="font-size: 0.82rem; font-weight: 700; letter-spacing: 0.04em;">ID NO</span>
+                  <strong class="text-white">LB-742918</strong>
+                </div>
+                <div>
+                  <span class="text-white d-block" style="font-size: 0.82rem; font-weight: 700; letter-spacing: 0.04em;">LIVES SAVED</span>
+                  <strong class="text-danger fw-bold">15 Lives</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+       10. DONATION STATISTICS & GLOBAL IMPACT
+       ========================================================== -->
+  <section class="section-padding" id="stats">
+    <div class="container">
+      <div class="text-center max-w-700 mx-auto mb-5">
+        <span class="section-tag">DATA-DRIVEN IMPACT</span>
+        <h2 class="section-title">Transfusion Metrics</h2>
+        <p class="section-subtitle mx-auto">
+          Every single blood donation can be separated into Red Blood Cells, Platelets, and Plasma, potentially saving up to three human lives.
+        </p>
+      </div>
+
+      <div class="row g-4 text-center">
+        <div class="col-6 col-lg-3">
+          <div class="glass-panel p-4">
+            <i class="fas fa-heartbeat text-danger fa-2x mb-3"></i>
+            <h2 class="display-5 fw-bold text-white mb-1" id="stat-lives-val">1,450</h2>
+            <div class="metric-label">Lives Saved</div>
+          </div>
+        </div>
+        <div class="col-6 col-lg-3">
+          <div class="glass-panel p-4">
+            <i class="fas fa-users text-info fa-2x mb-3"></i>
+            <h2 class="display-5 fw-bold text-white mb-1" id="stat-donors-val">858</h2>
+            <div class="metric-label">Registered Heroes</div>
+          </div>
+        </div>
+        <div class="col-6 col-lg-3">
+          <div class="glass-panel p-4">
+            <i class="fas fa-tint text-danger fa-2x mb-3"></i>
+            <h2 class="display-5 fw-bold text-white mb-1" id="stat-units-val">175</h2>
+            <div class="metric-label">Units In Stock</div>
+          </div>
+        </div>
+        <div class="col-6 col-lg-3">
+          <div class="glass-panel p-4">
+            <i class="fas fa-satellite-dish text-warning fa-2x mb-3"></i>
+            <h2 class="display-5 fw-bold text-white mb-1" id="stat-active-req">3</h2>
+            <div class="metric-label">Active Dispatches</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+       11. TESTIMONIALS & MEDICAL ENDORSEMENTS
+       ========================================================== -->
+  <section class="section-padding bg-secondary bg-opacity-25">
+    <div class="container">
+      <div class="text-center max-w-700 mx-auto mb-5">
+        <span class="section-tag">COMMUNITY VOICES</span>
+        <h2 class="section-title">Stories That Touch Hearts</h2>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="glass-panel p-4 h-100">
+            <div class="text-warning mb-3">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <p class="card-quote mb-4">
+              “When our ICU had an emergency polytrauma patient needing 4 units of rare O-negative at 2 AM, LifeBlood dispatched matching donor coordinates within 6 minutes. It saved a father's life.”
+            </p>
+            <div class="d-flex align-items-center gap-3">
+              <div class="donor-avatar bg-danger text-white">SV</div>
+              <div>
+                <strong class="text-white d-block" style="font-size: 1.05rem;">Dr. S. Varma</strong>
+                <div class="text-white" style="font-size: 0.88rem; font-weight: 500;">Chief Trauma Surgeon, Apollo Hospitals</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="glass-panel p-4 h-100">
+            <div class="text-warning mb-3">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <p class="card-quote mb-4">
+              “As a regular B+ donor, the experience with LifeBlood is transparent and seamless. Seeing the exact timestamp when my donated unit fulfilled an emergency gives unmatched purpose.”
+            </p>
+            <div class="d-flex align-items-center gap-3">
+              <div class="donor-avatar bg-primary text-white">MA</div>
+              <div>
+                <strong class="text-white d-block" style="font-size: 1.05rem;">Mohammed Arif</strong>
+                <div class="text-white" style="font-size: 0.88rem; font-weight: 500;">7-Time Platinum Donor</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="glass-panel p-4 h-100">
+            <div class="text-warning mb-3">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <p class="card-quote mb-4">
+              “LifeBlood bridged our regional blood bank directly with urban hospitals. Inventory waste reduced by 85% thanks to real-time compatibility and threshold alerts.”
+            </p>
+            <div class="d-flex align-items-center gap-3">
+              <div class="donor-avatar bg-success text-white">RC</div>
+              <div>
+                <strong class="text-white d-block" style="font-size: 1.05rem;">Dr. Radhakrishnan</strong>
+                <div class="text-white" style="font-size: 0.88rem; font-weight: 500;">Director, Red Cross Blood Services</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+       12. FOOTER
+       ========================================================== -->
+  <footer class="footer-custom">
+    <div class="container">
+      <div class="row g-4 mb-5">
+        <div class="col-lg-4">
+          <div class="brand-logo mb-3">
+            <div class="brand-icon-box">
+              <i class="fas fa-heartbeat text-white"></i>
+            </div>
+            <div class="brand-name">Life<span>Blood</span></div>
+          </div>
+          <p class="text-white mb-3" style="font-size: 0.95rem; line-height: 1.6;">
+            LifeBlood is a smart, full-stack digital blood management ecosystem connecting compassionate donors, accredited blood banks, and critical trauma patients across nationwide healthcare networks.
+          </p>
+          <div class="d-flex gap-3 text-white">
+            <a href="#" class="text-white hover-crimson fa-lg"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="text-white hover-crimson fa-lg"><i class="fab fa-linkedin"></i></a>
+            <a href="#" class="text-white hover-crimson fa-lg"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+
+        <div class="col-6 col-lg-2">
+          <h6 class="text-white text-uppercase small fw-bold mb-3">Navigation</h6>
+          <ul class="list-unstyled d-flex flex-column gap-2 text-white" style="font-size: 0.95rem; font-weight: 500;">
+            <li><a href="#inventory" class="text-white text-decoration-none">Live Inventory</a></li>
+            <li><a href="#compatibility" class="text-white text-decoration-none">Compatibility Matrix</a></li>
+            <li><a href="#donors" class="text-white text-decoration-none">Donor Directory</a></li>
+            <li><a href="#banks" class="text-white text-decoration-none">Regional Banks</a></li>
+          </ul>
+        </div>
+
+        <div class="col-6 col-lg-2">
+          <h6 class="text-white text-uppercase small fw-bold mb-3">Portals</h6>
+          <ul class="list-unstyled d-flex flex-column gap-2 text-white" style="font-size: 0.95rem; font-weight: 500;">
+            <li><a href="#" class="text-white text-decoration-none btn-open-donor-reg" data-action="open-donor-reg">Donor Registration</a></li>
+            <li><a href="#" class="text-white text-decoration-none btn-open-sos" data-action="open-sos">Emergency SOS Requisition</a></li>
+            <li><a href="#" class="text-white text-decoration-none" id="btn-open-admin" data-action="open-admin">Admin Dashboard</a></li>
+            <li><a href="#" class="text-white text-decoration-none btn-open-login" data-action="open-login">Hospital Sign In</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-4">
+          <h6 class="text-white text-uppercase small fw-bold mb-3">24/7 Trauma Emergency Helpline</h6>
+          <div class="p-3 bg-dark rounded-3 border border-danger mb-3">
+            <div class="d-flex align-items-center gap-3">
+              <i class="fas fa-phone-volume text-danger fa-2x"></i>
+              <div>
+                <span class="text-white fw-bold d-block" style="font-size: 0.8rem; letter-spacing: 0.05em;">TOLL-FREE CLINICAL DISPATCH</span>
+                <strong class="text-white fs-5">+91 1800 425 2566</strong>
+              </div>
+            </div>
+          </div>
+          <p class="text-white mb-0" style="font-size: 0.9rem;">Emergency blood units are released under statutory clinical supervision.</p>
+        </div>
+      </div>
+
+      <div class="border-top border-secondary pt-4 d-flex flex-wrap justify-content-between text-white" style="font-size: 0.9rem; font-weight: 500;">
+        <div>&copy; 2026 LifeBlood Technologies Inc. All rights reserved. “Every Drop. Every Life. Connected.”</div>
+        <div>Engineered with Node.js, Express, MySQL 8.0 & Three.js</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================
+       MODAL 1: EMERGENCY SOS BLOOD REQUEST
+       ========================================================== -->
+  <div class="modal-custom" id="modal-emergency-sos">
+    <div class="modal-content-box">
+      <button class="modal-close-btn" type="button"><i class="fas fa-times"></i></button>
+      <div class="d-flex align-items-center gap-2 mb-3">
+        <span class="pulse-dot"></span>
+        <h4 class="text-white mb-0">Emergency Blood Requisition</h4>
+      </div>
+      <p class="text-white mb-4" style="font-size: 0.98rem; font-weight: 500;">
+        Submit critical hospital requisition details. Nearby registered donors and stock controllers will be notified immediately.
+      </p>
+
+      <form id="form-emergency-sos">
+        <div class="row g-3 mb-3">
+          <div class="col-md-6">
+            <label class="form-label text-white fw-bold">Patient Full Name *</label>
+            <input type="text" class="input-futuristic" id="sos-patient-name" placeholder="e.g. Anand Kumar" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label text-white fw-bold">Hospital / Trauma Center *</label>
+            <input type="text" class="input-futuristic" id="sos-hospital-name" placeholder="e.g. Apollo Main Hospital" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label text-white fw-bold">Blood Group Needed *</label>
+            <select class="input-futuristic" id="sos-blood-group" required>
+              <option value="O+">O+ Positive</option>
+              <option value="O-">O- Negative (Universal)</option>
+              <option value="A+">A+ Positive</option>
+              <option value="A-">A- Negative</option>
+              <option value="B+">B+ Positive</option>
+              <option value="B-">B- Negative</option>
+              <option value="AB+">AB+ Positive</option>
+              <option value="AB-">AB- Negative</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label text-white fw-bold">Units Required (Pints) *</label>
+            <input type="number" class="input-futuristic" id="sos-units" min="1" max="10" value="1" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label text-white fw-bold">Urgency Level *</label>
+            <select class="input-futuristic" id="sos-urgency" required>
+              <option value="Critical_Emergency">Critical Emergency (Immediate)</option>
+              <option value="Urgent">Urgent (Within 4 Hours)</option>
+              <option value="Standard">Standard (Within 24 Hours)</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label text-white fw-bold">City / Location *</label>
+            <input type="text" class="input-futuristic" id="sos-city" placeholder="e.g. Chennai" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label text-white fw-bold">Attending Coordinator / Doctor *</label>
+            <input type="text" class="input-futuristic" id="sos-contact-name" placeholder="e.g. Dr. Raghavan" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label text-white fw-bold">Coordinator Phone *</label>
+            <input type="tel" class="input-futuristic" id="sos-contact-phone" placeholder="e.g. +91 98400 12345" required>
+          </div>
+          <div class="col-12">
+            <label class="form-label text-white fw-bold">Clinical Reason / Surgical Context</label>
+            <textarea class="input-futuristic" id="sos-reason" rows="2" placeholder="e.g. Emergency cardiac bypass, acute trauma recovery..."></textarea>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-end gap-3 mt-4">
+          <button type="button" class="btn btn-glass modal-close-btn-inline">Cancel</button>
+          <button type="submit" class="btn btn-magnetic btn-crimson px-4">
+            <i class="fas fa-paper-plane me-1"></i> Broadcast Requisition
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================================
+       MODAL 2: DONOR REGISTRATION
+       ========================================================== -->
+  <div class="modal-custom" id="modal-donor-reg">
+    <div class="modal-content-box">
+      <button class="modal-close-btn" type="button"><i class="fas fa-times"></i></button>
+      <div class="d-flex align-items-center gap-2 mb-3">
+        <i class="fas fa-heartbeat text-danger fa-lg"></i>
+        <h4 class="text-white mb-0">Become a LifeBlood Hero</h4>
+      </div>
+      <p class="text-white mb-4" style="font-size: 0.98rem; font-weight: 500;">
+        Register as an active blood donor. Receive instant alerts when a matching patient in your city requires urgent transfusion.
+      </p>
+
+      <form id="form-donor-register">
+        <div class="row g-3 mb-3">
+          <div class="col-md-6">
+            <label class="form-label text-white fw-bold">Full Name *</label>
+            <input type="text" class="input-futuristic" id="reg-donor-name" placeholder="e.g. Ramesh Krishnan" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label text-white fw-bold">Email Address *</label>
+            <input type="email" class="input-futuristic" id="reg-donor-email" placeholder="e.g. ramesh@example.com" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label text-white fw-bold">Phone Number *</label>
+            <input type="tel" class="input-futuristic" id="reg-donor-phone" placeholder="e.g. +91 98401 55667" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label text-white fw-bold">Blood Group *</label>
+            <select class="input-futuristic" id="reg-donor-bg" required>
+              <option value="O+">O+ Positive</option>
+              <option value="O-">O- Negative</option>
+              <option value="A+">A+ Positive</option>
+              <option value="A-">A- Negative</option>
+              <option value="B+">B+ Positive</option>
+              <option value="B-">B- Negative</option>
+              <option value="AB+">AB+ Positive</option>
+              <option value="AB-">AB- Negative</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label text-white fw-bold">Age (18-65) *</label>
+            <input type="number" class="input-futuristic" id="reg-donor-age" min="18" max="65" value="25" required>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label text-white fw-bold">Gender *</label>
+            <select class="input-futuristic" id="reg-donor-gender" required>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label text-white fw-bold">City *</label>
+            <input type="text" class="input-futuristic" id="reg-donor-city" placeholder="e.g. Chennai" required>
+          </div>
+          <div class="col-12">
+            <label class="form-label text-white fw-bold">Medical / Health Notes</label>
+            <input type="text" class="input-futuristic" id="reg-donor-notes" placeholder="e.g. Hemoglobin 14.2, No chronic conditions, regular runner">
+          </div>
+        </div>
+
+        <div class="form-check mb-4">
+          <input class="form-check-input" type="checkbox" id="reg-donor-consent" required checked>
+          <label class="form-check-label text-white fw-medium" for="reg-donor-consent" style="font-size: 0.92rem;">
+            I certify that I am at least 18 years old, weigh above 45kg, and consent to be contacted for emergency transfusions.
+          </label>
+        </div>
+
+        <div class="d-flex justify-content-end gap-3">
+          <button type="submit" class="btn btn-magnetic btn-crimson px-4 w-100">
+            <i class="fas fa-check-circle me-1"></i> Complete Registration
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================================
+       MODAL 3: SIGN IN / AUTHENTICATION
+       ========================================================== -->
+  <div class="modal-custom" id="modal-auth-login">
+    <div class="modal-content-box" style="max-width: 480px;">
+      <button class="modal-close-btn" type="button"><i class="fas fa-times"></i></button>
+      <div class="text-center mb-4">
+        <div class="brand-icon-box mx-auto mb-2" style="width: 50px; height: 50px;">
+          <i class="fas fa-lock text-white fa-lg"></i>
+        </div>
+        <h4 class="text-white mb-1">LifeBlood Secure Portal</h4>
+        <p class="text-white small fw-medium">Sign in for administrator triage or hospital requisition access</p>
+      </div>
+
+      <form id="form-auth-login">
+        <div class="mb-3">
+          <label class="form-label text-white fw-bold">Email Address</label>
+          <input type="email" class="input-futuristic" id="login-email" value="admin@lifeblood.org" required>
+        </div>
+        <div class="mb-4">
+          <label class="form-label text-white fw-bold">Password</label>
+          <input type="password" class="input-futuristic" id="login-password" value="Admin@123" required>
+        </div>
+
+        <div class="p-3 bg-dark rounded-3 border border-secondary mb-3 small text-white">
+          <div class="fw-bold text-white mb-2"><i class="fas fa-bolt text-warning me-1"></i> 1-Click Demo Credentials:</div>
+          <div class="d-flex flex-wrap gap-2">
+            <button type="button" class="btn btn-sm btn-glass text-white py-1 px-2" data-action="fill-demo-admin">
+              <i class="fas fa-shield-alt text-danger me-1"></i> Admin
+            </button>
+            <button type="button" class="btn btn-sm btn-glass text-white py-1 px-2" data-action="fill-demo-donor">
+              <i class="fas fa-hand-holding-heart text-info me-1"></i> Donor
+            </button>
+            <button type="button" class="btn btn-sm btn-glass text-white py-1 px-2" data-action="fill-demo-hospital">
+              <i class="fas fa-hospital text-success me-1"></i> Hospital
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-magnetic btn-crimson w-100 py-2 mb-2">
+          <i class="fas fa-sign-in-alt me-1"></i> Sign In to System
+        </button>
+
+        <a href="/login" class="btn btn-sm btn-cyan-outline w-100 py-2">
+          <i class="fas fa-external-link-alt me-1"></i> Open Dedicated Fullscreen Login Page
+        </a>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================================
+       MODAL 4: FULL ADMIN DASHBOARD MODAL
+       ========================================================== -->
+  <div class="modal-custom" id="modal-admin-dashboard">
+    <div class="modal-content-box" style="max-width: 900px;">
+      <button class="modal-close-btn" type="button"><i class="fas fa-times"></i></button>
+      
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+          <span class="badge bg-danger mb-1">ADMINISTRATOR CONTROL</span>
+          <h4 class="text-white mb-0">LifeBlood Central Triage Dashboard</h4>
+        </div>
+        <button type="button" class="btn btn-sm btn-glass text-danger" data-action="logout">
+          <i class="fas fa-sign-out-alt me-1"></i> Logout
+        </button>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <div class="admin-tab-nav">
+        <button type="button" class="admin-tab-btn active" data-action="switch-admin-tab" data-tab="requests">
+          <i class="fas fa-clipboard-list me-1"></i> Emergency Requests
+        </button>
+        <button type="button" class="admin-tab-btn" data-action="switch-admin-tab" data-tab="inventory">
+          <i class="fas fa-boxes me-1"></i> Live Inventory Control
+        </button>
+        <button type="button" class="admin-tab-btn" data-action="switch-admin-tab" data-tab="ml">
+          <i class="fas fa-brain me-1"></i> AI & ML Analytics
+        </button>
+      </div>
+
+      <!-- Tab 1: Requests -->
+      <div id="admin-tab-requests">
+        <div class="table-responsive">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Code</th>
+                <th>Patient / Hospital</th>
+                <th>Group & Units</th>
+                <th>Urgency</th>
+                <th>Action / Status</th>
+              </tr>
+            </thead>
+            <tbody id="admin-requests-tbody">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tab 2: Inventory -->
+      <div id="admin-tab-inventory" style="display: none;">
+        <p class="text-white small mb-3 fw-medium">Directly adjust available units in the database repository. Status badges recalibrate automatically.</p>
+        <div class="table-responsive">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Blood Group</th>
+                <th>Units In Stock</th>
+                <th>Threshold Status</th>
+                <th>Commit Change</th>
+              </tr>
+            </thead>
+            <tbody id="admin-inventory-tbody">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tab 3: AI & Machine Learning Analytics -->
+      <div id="admin-tab-ml" style="display: none;">
+        <div class="row g-3 mb-2">
+          <div class="col-md-7">
+            <div class="p-3 bg-dark rounded-3 border border-secondary h-100">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <h6 class="text-white mb-0"><i class="fas fa-chart-line text-info me-2"></i> 30-Day Predictive Demand Forecaster</h6>
+                <span class="badge bg-primary" style="font-size: 0.8rem; font-weight: 700;">Multi-Factor Regressor</span>
+              </div>
+              <p class="text-white small mb-3 fw-medium">Forecasting regional clinical demand by combining historical rates, seasonal multipliers, and Rh rarity.</p>
+              <div class="table-responsive" style="max-height: 270px; overflow-y: auto;">
+                <table class="admin-table" style="font-size: 0.86rem;">
+                  <thead>
+                    <tr>
+                      <th>Group</th>
+                      <th>Stock</th>
+                      <th>Forecast (30d)</th>
+                      <th>Risk Level</th>
+                      <th>Action Required</th>
+                    </tr>
+                  </thead>
+                  <tbody id="ml-forecast-tbody">
+                    <!-- Populated dynamically via /api/ml/forecast -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-5">
+            <div class="p-3 bg-dark rounded-3 border border-secondary h-100">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <h6 class="text-white mb-0"><i class="fas fa-user-check text-success me-2"></i> Donor Return Classifier</h6>
+                <span class="badge bg-success" style="font-size: 0.8rem; font-weight: 700;">UCI Blood Model</span>
+              </div>
+              <p class="text-white small mb-3 fw-medium">Predict probability of donor returning for next donation cycle.</p>
+              
+              <div class="mb-2">
+                <label class="form-label text-white fw-bold mb-1">Months Since Last Donation (Recency)</label>
+                <input type="number" class="form-control form-control-sm bg-dark text-white border-secondary" id="ml-donor-recency" value="3" min="1" max="36">
+              </div>
+              <div class="mb-2">
+                <label class="form-label text-white fw-bold mb-1">Total Past Donations (Frequency)</label>
+                <input type="number" class="form-control form-control-sm bg-dark text-white border-secondary" id="ml-donor-frequency" value="5" min="1" max="50">
+              </div>
+              <div class="mb-2">
+                <label class="form-label text-white fw-bold mb-1">Donor Age</label>
+                <input type="number" class="form-control form-control-sm bg-dark text-white border-secondary" id="ml-donor-age" value="28" min="18" max="65">
+              </div>
+              <button class="btn btn-sm btn-cyan-outline w-100 mt-2 py-2 fw-bold" type="button" data-action="run-donor-ml-prediction">
+                <i class="fas fa-brain me-1"></i> Evaluate Donor Likelihood
+              </button>
+
+              <div id="ml-donor-result" class="mt-3 p-2 rounded-3 border border-secondary bg-black text-center" style="display: none;">
+                <div class="small text-white mb-1 fw-bold">PREDICTION RESULT</div>
+                <div class="h5 mb-1 text-white fw-bold" id="ml-donor-score">--</div>
+                <div class="badge px-2 py-1 mb-2" id="ml-donor-badge">--</div>
+                <div class="text-white fw-bold" style="font-size: 0.92rem;" id="ml-donor-strategy">--</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ==========================================================
+       MODAL 5: DONOR PERSONAL PORTAL & HERO PASS
+       ========================================================== -->
+  <div class="modal-custom" id="modal-donor-portal">
+    <div class="modal-content-box" style="max-width: 860px;">
+      <button class="modal-close-btn" type="button"><i class="fas fa-times"></i></button>
+
+      <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom border-secondary">
+        <div class="d-flex align-items-center gap-3">
+          <div class="brand-icon-box" style="width: 42px; height: 42px;">
+            <i class="fas fa-hand-holding-heart text-white"></i>
+          </div>
+          <div>
+            <h4 class="text-white mb-0">My LifeBlood Hero Portal</h4>
+            <span class="text-white small fw-medium">Welcome back, <strong id="donor-portal-name" class="text-white">Donor</strong></span>
+          </div>
+        </div>
+        <button type="button" class="btn btn-sm btn-glass text-danger" data-action="logout">
+          <i class="fas fa-sign-out-alt me-1"></i> Sign Out
+        </button>
+      </div>
+
+      <!-- Quick Metrics -->
+      <div class="row g-3 mb-4 text-center">
+        <div class="col-4">
+          <div class="p-3 bg-dark rounded-3 border border-secondary">
+            <div class="portal-stat-metric text-danger mb-1" id="donor-portal-bg">--</div>
+            <div class="text-white fw-bold text-uppercase" style="font-size: 0.85rem; letter-spacing: 0.05em;">Blood Group</div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="p-3 bg-dark rounded-3 border border-secondary">
+            <div class="portal-stat-metric text-info mb-1" id="donor-portal-donations">0</div>
+            <div class="text-white fw-bold text-uppercase" style="font-size: 0.85rem; letter-spacing: 0.05em;">Donations Made</div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="p-3 bg-dark rounded-3 border border-secondary">
+            <div class="portal-stat-metric text-success mb-1" id="donor-portal-lives">0</div>
+            <div class="text-white fw-bold text-uppercase" style="font-size: 0.85rem; letter-spacing: 0.05em;">Lives Saved</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Availability Switch -->
+      <div class="d-flex flex-wrap justify-content-between align-items-center p-3 bg-dark rounded-3 border border-secondary mb-4 gap-3">
+        <div>
+          <div class="text-white fw-bold mb-1">
+            <i class="fas fa-bell text-warning me-1"></i> Emergency Alert Availability
+          </div>
+          <p class="text-white mb-0" style="font-size: 0.95rem;">Toggle your availability for urgent regional transfusion dispatches.</p>
+        </div>
+        <div class="switch-container">
+          <span id="donor-avail-badge" class="badge bg-success px-2 py-1">AVAILABLE</span>
+          <label class="switch-toggle mb-0">
+            <input type="checkbox" id="donor-avail-checkbox" data-action="toggle-availability">
+            <span class="switch-slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="admin-tab-nav">
+        <button type="button" class="admin-tab-btn active" id="tab-btn-donor-pass" data-action="switch-donor-tab" data-tab="pass">
+          <i class="fas fa-id-card me-1"></i> Digital Hero Pass
+        </button>
+        <button type="button" class="admin-tab-btn" id="tab-btn-donor-appointments" data-action="switch-donor-tab" data-tab="appointments">
+          <i class="fas fa-calendar-alt me-1"></i> Donation Schedule
+        </button>
+        <button type="button" class="admin-tab-btn" id="tab-btn-donor-health" data-action="switch-donor-tab" data-tab="health">
+          <i class="fas fa-heartbeat me-1"></i> Eligibility Guide
+        </button>
+      </div>
+
+      <!-- Tab 1: Hero Pass -->
+      <div id="donor-tab-pass">
+        <div class="row justify-content-center">
+          <div class="col-md-9">
+            <div id="donor-portal-card-render">
+              <!-- Rendered dynamically -->
+            </div>
+            <div class="text-center mt-3">
+              <button type="button" class="btn btn-sm btn-cyan-outline" data-action="print-hero-pass">
+                <i class="fas fa-download me-1"></i> Download / Print Hero Pass
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 2: Appointments -->
+      <div id="donor-tab-appointments" style="display: none;">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h6 class="text-white mb-0">Upcoming & Past Appointments</h6>
+          <button type="button" class="btn btn-sm btn-crimson" data-action="open-book-appointment-form">
+            <i class="fas fa-plus me-1"></i> Schedule New Slot
+          </button>
+        </div>
+
+        <div id="donor-appointments-container" class="d-flex flex-column gap-2 mb-3">
+          <!-- Populated dynamically -->
+        </div>
+
+        <!-- Inline Schedule Form -->
+        <div id="form-inline-appointment" class="p-3 bg-dark rounded-3 border border-secondary mt-3" style="display: none;">
+          <h6 class="text-white mb-3"><i class="fas fa-clock text-info me-1"></i> Book Donation Slot</h6>
+          <div class="row g-2">
+            <div class="col-md-6">
+              <label class="form-label text-white fw-bold">Blood Bank</label>
+              <select class="input-futuristic" id="app-bank-select">
+                <option value="1">Central Medical Blood Center (Chennai)</option>
+                <option value="2">Apex Regional Red Cross Bank (Coimbatore)</option>
+                <option value="3">Metro Lifeline Blood Institute (Bengaluru)</option>
+                <option value="4">CarePoint Blood Transfusion Trust (Madurai)</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label text-white fw-bold">Date</label>
+              <input type="date" class="input-futuristic" id="app-date-input" min="2026-09-20">
+            </div>
+            <div class="col-md-3">
+              <label class="form-label text-white fw-bold">Time Slot</label>
+              <select class="input-futuristic" id="app-slot-select">
+                <option>09:00 AM - 10:30 AM</option>
+                <option>11:00 AM - 12:30 PM</option>
+                <option>02:00 PM - 03:30 PM</option>
+                <option>04:00 PM - 05:30 PM</option>
+              </select>
+            </div>
+          </div>
+          <div class="text-end mt-3">
+            <button type="button" class="btn btn-sm btn-glass me-2" data-action="hide-appointment-form">Cancel</button>
+            <button type="button" class="btn btn-sm btn-crimson" data-action="confirm-appointment-booking">Confirm Slot</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 3: Health Guide -->
+      <div id="donor-tab-health" style="display: none;">
+        <div class="p-3 bg-dark rounded-3 border border-secondary mb-3">
+          <h6 class="text-white mb-2"><i class="fas fa-shield-alt text-success me-1"></i> Medical Transfusion Guidelines</h6>
+          <ul class="text-white small mb-0 ps-3">
+            <li><strong>Cooldown Interval:</strong> 90 days required between whole blood donations.</li>
+            <li><strong>Hemoglobin Level:</strong> Must be ≥ 12.5 g/dL.</li>
+            <li><strong>Weight:</strong> Minimum 45 kg (100 lbs).</li>
+            <li><strong>Pre-donation advice:</strong> Drink plenty of water and have a light meal 2 hours before donation.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================
+       MODAL 6: HOSPITAL REQUISITION PORTAL
+       ========================================================== -->
+  <div class="modal-custom" id="modal-hospital-portal">
+    <div class="modal-content-box" style="max-width: 920px;">
+      <button class="modal-close-btn" type="button"><i class="fas fa-times"></i></button>
+
+      <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom border-secondary">
+        <div class="d-flex align-items-center gap-3">
+          <div class="brand-icon-box" style="width: 42px; height: 42px;">
+            <i class="fas fa-hospital text-white"></i>
+          </div>
+          <div>
+            <h4 class="text-white mb-0">Hospital Trauma & Requisition Hub</h4>
+            <span class="text-white small fw-medium">Logged in: <strong id="hospital-portal-name" class="text-white">Apollo Hospitals</strong></span>
+          </div>
+        </div>
+        <button type="button" class="btn btn-sm btn-glass text-danger" data-action="logout">
+          <i class="fas fa-sign-out-alt me-1"></i> Sign Out
+        </button>
+      </div>
+
+      <!-- Metrics -->
+      <div class="row g-3 mb-4 text-center">
+        <div class="col-4">
+          <div class="p-3 bg-dark rounded-3 border border-secondary">
+            <div class="portal-stat-metric text-warning mb-1" id="hosp-metric-active">2</div>
+            <div class="text-white fw-bold text-uppercase" style="font-size: 0.85rem; letter-spacing: 0.05em;">Active Requisitions</div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="p-3 bg-dark rounded-3 border border-secondary">
+            <div class="portal-stat-metric text-success mb-1" id="hosp-metric-fulfilled">1</div>
+            <div class="text-white fw-bold text-uppercase" style="font-size: 0.85rem; letter-spacing: 0.05em;">Units Fulfilled</div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="p-3 bg-dark rounded-3 border border-secondary">
+            <div class="portal-stat-metric text-info mb-1">24/7</div>
+            <div class="text-white fw-bold text-uppercase" style="font-size: 0.85rem; letter-spacing: 0.05em;">Priority Cold-Chain</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h6 class="text-white mb-0">Hospital Blood Requisitions Log</h6>
+        <button class="btn btn-sm btn-crimson btn-open-sos">
+          <i class="fas fa-bullhorn me-1"></i> New Emergency Requisition
+        </button>
+      </div>
+
+      <!-- Requisitions Table -->
+      <div class="table-responsive">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Tracking Code</th>
+              <th>Patient / Details</th>
+              <th>Blood Type</th>
+              <th>Urgency</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="hospital-requests-tbody">
+            <!-- Dynamically populated -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <!-- 1. Bootstrap 5 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- 2. Three.js for 3D Erythrocytes Canvas -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- 3. GSAP for Smooth Animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <!-- 4. Three.js WebGL Script -->
+  <script src="/js/canvas-3d.js"></script>
+  <!-- 5. Main Application Logic -->
+  <script src="/js/app.js?v=3.7"></script>
+
+  <script>
+    function switchAdminTab(tab) {
+      const tabReq = document.getElementById('admin-tab-requests');
+      const tabInv = document.getElementById('admin-tab-inventory');
+      const tabMl = document.getElementById('admin-tab-ml');
+      const btns = document.querySelectorAll('.admin-tab-btn');
+
+      btns.forEach(b => b.classList.remove('active'));
+      if (tabReq) tabReq.style.display = 'none';
+      if (tabInv) tabInv.style.display = 'none';
+      if (tabMl) tabMl.style.display = 'none';
+
+      if (tab === 'requests') {
+        if (tabReq) tabReq.style.display = 'block';
+        if (btns[0]) btns[0].classList.add('active');
+      } else if (tab === 'inventory') {
+        if (tabInv) tabInv.style.display = 'block';
+        if (btns[1]) btns[1].classList.add('active');
+      } else if (tab === 'ml') {
+        if (tabMl) tabMl.style.display = 'block';
+        if (btns[2]) btns[2].classList.add('active');
+        if (typeof window.loadMLForecastData === 'function') {
+          window.loadMLForecastData();
+        }
+      }
+    }
+
+    // Modal inline cancel buttons
+    document.querySelectorAll('.modal-close-btn-inline').forEach(b => {
+      b.onclick = () => {
+        window.closeModal();
+      };
+    });
+  </script>
+</body>
+</html>

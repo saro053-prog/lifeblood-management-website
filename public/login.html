@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In & Register – LifeBlood Smart Blood Management</title>
+  <meta name="description" content="Secure authentication portal for LifeBlood donors, medical staff, and administrators.">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🩸</text></svg>">
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/css/styles.css?v=3.6">
+
+  <style>
+    html, body {
+      overflow-x: hidden;
+      overflow-y: auto;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      display: flex;
+      min-height: 100vh;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at 50% 30%, #1c0a10 0%, #07090e 70%);
+      padding: 40px 15px;
+      touch-action: pan-y;
+    }
+
+    .auth-card-wrapper {
+      width: 100%;
+      max-width: 520px;
+    }
+
+    .auth-card {
+      background: rgba(14, 20, 32, 0.94);
+      border: 1px solid rgba(230, 57, 70, 0.45);
+      border-radius: 24px;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(230, 57, 70, 0.2);
+      padding: 40px 36px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .auth-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #00F5D4, #E63946, #FF5D6C);
+    }
+
+    .auth-tab-switch {
+      display: flex;
+      background: rgba(7, 9, 14, 0.7);
+      padding: 4px;
+      border-radius: 12px;
+      border: 1px solid var(--border-subtle);
+      margin-bottom: 28px;
+    }
+
+    .auth-tab-btn {
+      flex: 1;
+      border: none;
+      background: transparent;
+      color: #FFFFFF;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 10px 16px;
+      border-radius: 9px;
+      transition: var(--transition-smooth);
+      cursor: pointer;
+    }
+
+    .auth-tab-btn.active {
+      background: var(--crimson-primary);
+      color: #FFFFFF !important;
+      box-shadow: 0 4px 15px rgba(230, 57, 70, 0.4);
+    }
+
+    .demo-creds-box {
+      background: rgba(7, 9, 14, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 14px;
+      padding: 14px 18px;
+      margin-top: 24px;
+    }
+
+    .demo-pill-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: #FFFFFF !important;
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+
+    .demo-pill-btn:hover {
+      background: rgba(230, 57, 70, 0.25);
+      border-color: var(--crimson-light);
+      color: #FFFFFF !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Custom Cursor -->
+  <div class="custom-cursor-dot"></div>
+  <div class="custom-cursor-outline"></div>
+
+  <div class="auth-card-wrapper">
+    <!-- Top Brand Link -->
+    <div class="text-center mb-4">
+      <a href="/" class="brand-logo justify-content-center mb-2">
+        <div class="brand-icon-box">
+          <i class="fas fa-heartbeat text-white fa-lg"></i>
+        </div>
+        <div class="brand-name">Life<span>Blood</span></div>
+      </a>
+      <p class="text-white small fw-medium">“Every Drop. Every Life. Connected.”</p>
+    </div>
+
+    <!-- Main Auth Card -->
+    <div class="auth-card">
+      <!-- Tabs Switcher -->
+      <div class="auth-tab-switch">
+        <button type="button" class="auth-tab-btn active" id="tab-btn-login" data-action="toggle-auth-tab" data-tab="login">
+          <i class="fas fa-sign-in-alt me-1"></i> Sign In
+        </button>
+        <button type="button" class="auth-tab-btn" id="tab-btn-register" data-action="toggle-auth-tab" data-tab="register">
+          <i class="fas fa-user-plus me-1"></i> Create Account
+        </button>
+      </div>
+
+      <!-- 1. SIGN IN FORM -->
+      <form id="page-form-login">
+        <div class="mb-3">
+          <label class="form-label text-white fw-bold">Email Address *</label>
+          <div class="input-group">
+            <span class="input-group-text bg-dark border-secondary"><i class="fas fa-envelope text-info"></i></span>
+            <input type="email" class="form-control input-futuristic" id="login-page-email" placeholder="name@domain.com" required value="admin@lifeblood.org">
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <div class="d-flex justify-content-between align-items-center mb-1">
+            <label class="form-label text-white fw-bold mb-0">Password *</label>
+          </div>
+          <div class="input-group">
+            <span class="input-group-text bg-dark border-secondary"><i class="fas fa-lock text-info"></i></span>
+            <input type="password" class="form-control input-futuristic" id="login-page-password" placeholder="••••••••" required value="Admin@123">
+            <button class="btn btn-dark border-secondary" type="button" data-action="toggle-password-visibility" data-target="login-page-password" aria-label="Toggle password visibility">
+              <i class="fas fa-eye text-white"></i>
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-magnetic btn-crimson w-100 py-3 mb-3 fw-bold" id="btn-submit-login">
+          <i class="fas fa-sign-in-alt me-2"></i> Access Portal
+        </button>
+
+        <!-- Quick One-Click Fill Buttons -->
+        <div class="demo-creds-box">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <span class="text-white small fw-bold"><i class="fas fa-bolt text-warning me-1"></i> Quick Autofill Accounts:</span>
+          </div>
+          <div class="d-flex flex-wrap gap-2">
+            <button type="button" class="demo-pill-btn" data-action="fill-demo-credentials" data-email="admin@lifeblood.org" data-password="Admin@123">
+              <i class="fas fa-shield-alt text-danger me-1"></i> Admin
+            </button>
+            <button type="button" class="demo-pill-btn" data-action="fill-demo-credentials" data-email="karthik@example.com" data-password="Donor@123">
+              <i class="fas fa-hand-holding-heart text-info me-1"></i> Donor
+            </button>
+            <button type="button" class="demo-pill-btn" data-action="fill-demo-credentials" data-email="emergency@apollo.org" data-password="Hospital@123">
+              <i class="fas fa-hospital text-success me-1"></i> Hospital
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <!-- 2. REGISTER FORM -->
+      <form id="page-form-register" style="display: none;">
+        <div class="mb-3">
+          <label class="form-label text-white fw-bold">Full Name *</label>
+          <input type="text" class="input-futuristic" id="reg-page-name" placeholder="e.g. Ramesh Krishnan" required>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label text-white fw-bold">Email Address *</label>
+          <input type="email" class="input-futuristic" id="reg-page-email" placeholder="ramesh@example.com" required>
+        </div>
+
+        <div class="row g-2 mb-3">
+          <div class="col-6">
+            <label class="form-label text-white fw-bold">Role *</label>
+            <select class="input-futuristic" id="reg-page-role" required>
+              <option value="donor">Volunteer Donor</option>
+              <option value="hospital">Hospital Staff</option>
+              <option value="blood_bank">Blood Bank Staff</option>
+            </select>
+          </div>
+          <div class="col-6">
+            <label class="form-label text-white fw-bold">Phone *</label>
+            <input type="tel" class="input-futuristic" id="reg-page-phone" placeholder="+91 98401 00000" required>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label text-white fw-bold">Create Password (min 6 chars) *</label>
+          <input type="password" class="input-futuristic" id="reg-page-password" placeholder="Create a strong password" required minlength="6">
+        </div>
+
+        <button type="submit" class="btn btn-magnetic btn-crimson w-100 py-3 mb-3 fw-bold">
+          <i class="fas fa-check-circle me-2"></i> Register Account
+        </button>
+      </form>
+
+      <!-- Back Link -->
+      <div class="text-center mt-3">
+        <a href="/" class="text-light small text-decoration-none hover-white fw-medium">
+          <i class="fas fa-arrow-left me-1 text-danger"></i> Back to Homepage
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container"></div>
+
+  <script>
+    // Check if logout was requested
+    const pageUrlParams = new URLSearchParams(window.location.search);
+    if (pageUrlParams.get('logout') === 'true' || pageUrlParams.get('logged_out') === 'true') {
+      localStorage.removeItem('lifeblood_token');
+      localStorage.removeItem('lifeblood_user');
+      sessionStorage.clear();
+      // Clear cookies
+      document.cookie.split(";").forEach((c) => { 
+        document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); 
+      });
+      if (window.history && window.history.replaceState) {
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }
+      setTimeout(() => {
+        showToast('You have been securely signed out. Session cleared.', 'success');
+      }, 200);
+    } else if (pageUrlParams.get('unauthorized')) {
+      const roleReq = pageUrlParams.get('unauthorized');
+      if (window.history && window.history.replaceState) {
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }
+      setTimeout(() => {
+        showToast(`Please sign in with ${roleReq} credentials to access that portal.`, 'info');
+      }, 200);
+    }
+
+    function toggleAuthTab(tab) {
+      const loginForm = document.getElementById('page-form-login');
+      const regForm = document.getElementById('page-form-register');
+      const btnLogin = document.getElementById('tab-btn-login');
+      const btnReg = document.getElementById('tab-btn-register');
+
+      if (tab === 'login') {
+        loginForm.style.display = 'block';
+        regForm.style.display = 'none';
+        btnLogin.classList.add('active');
+        btnReg.classList.remove('active');
+      } else {
+        loginForm.style.display = 'none';
+        regForm.style.display = 'block';
+        btnLogin.classList.remove('active');
+        btnReg.classList.add('active');
+      }
+    }
+
+    function fillCredentials(email, pwd) {
+      document.getElementById('login-page-email').value = email;
+      document.getElementById('login-page-password').value = pwd;
+      showToast('Credentials filled! Click "Access Portal" to sign in.', 'info');
+    }
+
+    function togglePasswordVisibility(id) {
+      const input = document.getElementById(id);
+      if (input.type === 'password') {
+        input.type = 'text';
+      } else {
+        input.type = 'password';
+      }
+    }
+
+    document.addEventListener('click', (event) => {
+      const trigger = event.target.closest('[data-action]');
+      if (!trigger) return;
+
+      const action = trigger.dataset.action;
+      if (action === 'toggle-auth-tab') {
+        toggleAuthTab(trigger.dataset.tab);
+        return;
+      }
+
+      if (action === 'fill-demo-credentials') {
+        fillCredentials(trigger.dataset.email, trigger.dataset.password);
+        return;
+      }
+
+      if (action === 'toggle-password-visibility') {
+        togglePasswordVisibility(trigger.dataset.target);
+      }
+    });
+
+    // Sign In Handler
+    document.getElementById('page-form-login').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('login-page-email').value.trim();
+      const password = document.getElementById('login-page-password').value;
+      const btn = document.getElementById('btn-submit-login');
+
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Authenticating...';
+
+      try {
+        const res = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          localStorage.setItem('lifeblood_token', data.token);
+          localStorage.setItem('lifeblood_user', JSON.stringify(data.user));
+          showToast(`Welcome back, ${data.user.name}! Redirecting...`, 'success');
+
+          setTimeout(() => {
+            if (data.user.role === 'admin') {
+              window.location.href = '/?admin=true';
+            } else if (data.user.role === 'donor') {
+              window.location.href = '/?donor=true';
+            } else if (data.user.role === 'hospital') {
+              window.location.href = '/?hospital=true';
+            } else {
+              window.location.href = '/';
+            }
+          }, 700);
+        } else {
+          showToast(data.message || 'Login failed', 'error');
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fas fa-sign-in-alt me-2"></i> Access Portal';
+        }
+      } catch (err) {
+        showToast('Network error connecting to server.', 'error');
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-sign-in-alt me-2"></i> Access Portal';
+      }
+    });
+
+    // Register Handler
+    document.getElementById('page-form-register').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('reg-page-name').value.trim();
+      const email = document.getElementById('reg-page-email').value.trim();
+      const role = document.getElementById('reg-page-role').value;
+      const phone = document.getElementById('reg-page-phone').value.trim();
+      const password = document.getElementById('reg-page-password').value;
+
+      try {
+        const res = await fetch('/api/auth/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, role, phone, password })
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          localStorage.setItem('lifeblood_token', data.token);
+          localStorage.setItem('lifeblood_user', JSON.stringify(data.user));
+          showToast('Account registered successfully! Redirecting...', 'success');
+          setTimeout(() => {
+            if (role === 'donor') window.location.href = '/?donor=true';
+            else if (role === 'hospital') window.location.href = '/?hospital=true';
+            else window.location.href = '/';
+          }, 800);
+        } else {
+          showToast(data.message || 'Registration failed', 'error');
+        }
+      } catch (err) {
+        showToast('Network error registering account.', 'error');
+      }
+    });
+
+    // Toast Utility
+    function showToast(message, type = 'info') {
+      const container = document.querySelector('.toast-container');
+      const toast = document.createElement('div');
+      toast.className = `custom-toast toast-${type}`;
+      const icon = type === 'success' ? 'fa-check-circle text-success' : (type === 'error' ? 'fa-exclamation-triangle text-danger' : 'fa-info-circle text-info');
+      toast.innerHTML = `<i class="fas ${icon} fa-lg"></i><div style="font-size: 0.92rem;">${message}</div>`;
+      container.appendChild(toast);
+
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 300);
+      }, 4000);
+    }
+
+    // Micro-Cursor Experience
+    const dot = document.querySelector('.custom-cursor-dot');
+    const outline = document.querySelector('.custom-cursor-outline');
+    if (dot && outline && !window.matchMedia('(hover: none) or (pointer: coarse)').matches) {
+      let mx = window.innerWidth / 2, my = window.innerHeight / 2, ox = mx, oy = my;
+      window.addEventListener('mousemove', (e) => {
+        mx = e.clientX;
+        my = e.clientY;
+        dot.style.transform = `translate3d(${mx}px, ${my}px, 0)`;
+      });
+      function render() {
+        ox += (mx - ox) * 0.18;
+        oy += (my - oy) * 0.18;
+        outline.style.transform = `translate3d(${ox}px, ${oy}px, 0)`;
+        requestAnimationFrame(render);
+      }
+      requestAnimationFrame(render);
+
+      document.addEventListener('mouseover', (e) => {
+        if (e.target.closest('a, button, input, select, .demo-pill-btn')) {
+          document.body.classList.add('cursor-hover');
+        } else {
+          document.body.classList.remove('cursor-hover');
+        }
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,1653 @@
+/* ==========================================================================
+   LifeBlood – Smart Blood Management System
+   Futuristic Medical Interface & Dark Cinematic Design System
+   ========================================================================== */
+
+:root {
+  /* Color Palette */
+  --bg-primary: #07090E;
+  --bg-secondary: #0D121D;
+  --bg-card: #0E1420;
+  --bg-card-hover: #141C2E;
+  --bg-glass: rgba(14, 20, 32, 0.98);
+
+  --crimson-primary: #FF385C;
+  --crimson-glow: rgba(255, 56, 92, 0.5);
+  --crimson-light: #FF6B81;
+  --crimson-dark: #C1121F;
+
+  --cyan-accent: #00F5D4;
+  --cyan-glow: rgba(0, 245, 212, 0.4);
+
+  --amber-warning: #FFB703;
+  --emerald-success: #2EC4B6;
+  --emerald-glow: rgba(46, 196, 182, 0.45);
+
+  --text-main: #FFFFFF;
+  --text-muted: #CBD5E1;
+  --text-dim: #94A3B8;
+
+  --border-subtle: rgba(255, 255, 255, 0.22);
+  --border-accent: #FF385C;
+  --border-glow: 0 0 25px rgba(255, 56, 92, 0.3);
+
+  /* Typography */
+  --font-sans: 'Outfit', 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  --font-display: 'Outfit', 'Space Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Transitions & Shadows */
+  --transition-smooth: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  --shadow-card: 0 16px 36px -10px rgba(0, 0, 0, 0.6);
+  --shadow-neon: 0 0 25px rgba(230, 57, 70, 0.4);
+}
+
+/* Base & Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  background-color: var(--bg-primary);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  overflow-y: scroll; /* Stable document scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(230, 57, 70, 0.4) var(--bg-primary);
+}
+
+body {
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+  line-height: 1.6;
+  background: radial-gradient(circle at 50% 0%, #17090e 0%, var(--bg-primary) 65%);
+  touch-action: pan-y;
+}
+
+body.modal-open {
+  overflow: hidden !important;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(230, 57, 70, 0.4);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--crimson-primary);
+}
+
+/* ==========================================================================
+   Custom Micro-Cursor (Desktop Only - Non-Distracting, Sleek & Zero-Lag)
+   ========================================================================== */
+.custom-cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 4px;
+  background: #FF4D6D;
+  border-radius: 50%;
+  pointer-events: none !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  z-index: 99999;
+  transform: translate3d(-50%, -50%, 0);
+  box-shadow: 0 0 6px rgba(255, 77, 109, 0.6);
+  transition: transform 0.12s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, opacity 0.2s ease;
+  will-change: transform;
+}
+
+.custom-cursor-outline {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 18px;
+  height: 18px;
+  border: 1px solid rgba(230, 57, 70, 0.3);
+  border-radius: 50%;
+  pointer-events: none !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  z-index: 99998;
+  transform: translate3d(-50%, -50%, 0);
+  transition: width 0.18s cubic-bezier(0.16, 1, 0.3, 1), height 0.18s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, background-color 0.2s ease;
+  will-change: transform;
+}
+
+body.cursor-hover .custom-cursor-dot {
+  transform: translate3d(-50%, -50%, 0) scale(1.25);
+  background: var(--cyan-accent);
+  box-shadow: 0 0 8px var(--cyan-glow);
+}
+
+body.cursor-hover .custom-cursor-outline {
+  width: 24px;
+  height: 24px;
+  border-color: rgba(0, 245, 212, 0.5);
+  background: rgba(0, 245, 212, 0.04);
+}
+
+@media (hover: none), (pointer: coarse), (max-width: 991px) {
+  .custom-cursor-dot, .custom-cursor-outline {
+    display: none !important;
+    opacity: 0 !important;
+  }
+}
+
+/* ==========================================================================
+   Typography & Utilities
+   ========================================================================== */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 750;
+  letter-spacing: -0.02em;
+  color: #FFFFFF !important;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+h1 { font-weight: 900 !important; }
+h2 { font-weight: 800 !important; color: #FFFFFF !important; }
+h3 { font-weight: 750 !important; color: #FFFFFF !important; }
+h4 { font-weight: 750 !important; color: #FFFFFF !important; }
+h5 { font-weight: 700 !important; color: #FFFFFF !important; }
+h6 { font-weight: 700 !important; color: #FFFFFF !important; }
+
+/* All Headings Inside Cards & Containers */
+.glass-panel h1, .glass-panel h2, .glass-panel h3, .glass-panel h4, .glass-panel h5, .glass-panel h6,
+.compat-box h4, .compat-box h5, .donor-card h5, .modal-content-box h4, .modal-content-box h5, .modal-content-box h6,
+.portal-card h4, .portal-card h5, .portal-card h6 {
+  color: #FFFFFF !important;
+  font-weight: 750 !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+p {
+  color: #FFFFFF !important;
+  line-height: 1.65;
+}
+
+.glass-panel p,
+.compat-box p,
+.donor-card p,
+.modal-content-box p,
+.portal-card p,
+.hero-stat-card p,
+.blood-card p,
+.card p {
+  color: #E2E8F0 !important;
+  font-size: 0.98rem !important;
+  font-weight: 500 !important;
+  line-height: 1.65 !important;
+  opacity: 1 !important;
+  text-shadow: none !important;
+}
+
+/* Force all text elements inside cards/boxes to be crisp */
+.glass-panel span,
+.compat-box span,
+.donor-card span,
+.blood-card span,
+.modal-content-box span,
+.portal-card span {
+  opacity: 1 !important;
+}
+
+.glass-panel .text-muted,
+.compat-box .text-muted,
+.donor-card .text-muted,
+.blood-card .text-muted,
+.modal-content-box .text-muted,
+.portal-card .text-muted,
+.hero-stat-card .text-muted,
+.glass-panel .text-dim,
+.compat-box .text-dim,
+.donor-card .text-dim,
+.blood-card .text-dim,
+.modal-content-box .text-dim,
+.portal-card .text-dim,
+.hero-stat-card .text-dim {
+  color: #CBD5E1 !important;
+  font-weight: 600 !important;
+  opacity: 1 !important;
+}
+
+small, .small,
+.glass-panel small, .glass-panel .small,
+.compat-box small, .compat-box .small,
+.donor-card small, .donor-card .small {
+  color: #CBD5E1 !important;
+  font-size: 0.9rem !important;
+  font-weight: 600 !important;
+  opacity: 1 !important;
+}
+
+/* Universal High-Contrast Text Overrides */
+.text-muted,
+p.text-muted,
+span.text-muted,
+div.text-muted,
+small.text-muted,
+.small.text-muted {
+  color: #FFFFFF !important;
+  --bs-text-opacity: 1 !important;
+  opacity: 1 !important;
+}
+
+.text-dim,
+p.text-dim,
+span.text-dim,
+div.text-dim,
+small.text-dim,
+.small.text-dim,
+label.text-dim {
+  color: #F8FAFC !important;
+  font-weight: 600 !important;
+  opacity: 1 !important;
+}
+
+.text-secondary {
+  color: #F8FAFC !important;
+}
+
+/* Specific card typography classes */
+.card-desc {
+  color: #FFFFFF !important;
+  font-size: 0.98rem !important;
+  font-weight: 500 !important;
+  line-height: 1.65 !important;
+  margin-top: 6px;
+}
+
+.card-quote {
+  color: #FFFFFF !important;
+  font-size: 1.02rem !important;
+  font-weight: 500 !important;
+  line-height: 1.7 !important;
+  font-style: italic;
+}
+
+.metric-label {
+  color: #FFFFFF !important;
+  font-size: 0.95rem !important;
+  font-weight: 750 !important;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-top: 8px;
+}
+
+/* Bootstrap Color Utility Overrides for Vibrant Dark Contrast */
+.text-danger {
+  color: #FF4D6D !important;
+  font-weight: 750 !important;
+  text-shadow: none !important;
+}
+
+.text-success {
+  color: #10B981 !important;
+  font-weight: 750 !important;
+  text-shadow: none !important;
+}
+
+.text-info {
+  color: #38BDF8 !important;
+  font-weight: 750 !important;
+  text-shadow: none !important;
+}
+
+.text-warning {
+  color: #FBBF24 !important;
+  font-weight: 750 !important;
+  text-shadow: none !important;
+}
+
+.text-cyan {
+  color: #00F5D4 !important;
+  font-weight: 750 !important;
+  text-shadow: none !important;
+}
+
+.text-white {
+  color: #FFFFFF !important;
+  font-weight: 650 !important;
+  text-shadow: none !important;
+}
+
+.bg-dark {
+  background-color: #0B101D !important;
+}
+
+.border-secondary {
+  border-color: rgba(255, 255, 255, 0.16) !important;
+}
+
+.bg-secondary.bg-opacity-25 {
+  background-color: rgba(13, 18, 30, 0.7) !important;
+}
+
+/* High-Contrast Badges */
+.badge {
+  font-weight: 700 !important;
+  letter-spacing: 0.04em;
+}
+
+.badge.bg-danger {
+  background-color: rgba(230, 57, 70, 0.3) !important;
+  color: #FF758F !important;
+  border: 1px solid rgba(255, 93, 108, 0.55) !important;
+}
+
+.badge.bg-success {
+  background-color: rgba(46, 196, 182, 0.25) !important;
+  color: #2EC4B6 !important;
+  border: 1px solid rgba(46, 196, 182, 0.55) !important;
+}
+
+.badge.bg-warning {
+  background-color: rgba(255, 183, 3, 0.25) !important;
+  color: #FFD166 !important;
+  border: 1px solid rgba(255, 209, 102, 0.55) !important;
+}
+
+.badge.bg-info {
+  background-color: rgba(0, 245, 212, 0.2) !important;
+  color: #00F5D4 !important;
+  border: 1px solid rgba(0, 245, 212, 0.55) !important;
+}
+
+.badge.bg-primary {
+  background-color: rgba(56, 189, 248, 0.25) !important;
+  color: #38BDF8 !important;
+  border: 1px solid rgba(56, 189, 248, 0.55) !important;
+}
+
+.badge.bg-secondary {
+  background-color: rgba(255, 255, 255, 0.15) !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(255, 255, 255, 0.28) !important;
+}
+
+.gradient-text-blood {
+  background: linear-gradient(135deg, #FFFFFF 15%, #FFA3AF 50%, #FF3355 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 10px rgba(255, 51, 85, 0.4));
+}
+
+.gradient-text-cyan {
+  background: linear-gradient(135deg, #FFFFFF 15%, #A5F3FC 55%, #00F5D4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 10px rgba(0, 245, 212, 0.4));
+}
+
+.badge-futuristic {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 100px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background: rgba(230, 57, 70, 0.2);
+  border: 1px solid rgba(255, 93, 108, 0.5);
+  color: #FF8FA3 !important;
+}
+
+.pulse-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #FF5D6C;
+  box-shadow: 0 0 10px #FF5D6C;
+  animation: pulse-ring 1.8s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.pulse-dot.cyan {
+  background: #00F5D4;
+  box-shadow: 0 0 10px #00F5D4;
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(230, 57, 70, 0.7); }
+  70% { transform: scale(1.1); box-shadow: 0 0 0 9px rgba(230, 57, 70, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(230, 57, 70, 0); }
+}
+
+/* Glass Panels */
+.glass-panel {
+  background: #111726 !important;
+  border: 2px solid #28354D !important;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+  position: relative;
+  overflow: hidden;
+  opacity: 1 !important;
+  transform: translateZ(0);
+  transition: var(--transition-smooth);
+}
+
+.glass-panel:hover {
+  border-color: #00F5D4 !important;
+  background: #162035 !important;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.8), 0 0 25px rgba(0, 245, 212, 0.25) !important;
+}
+
+.glass-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+}
+
+/* ==========================================================================
+   Navigation Bar
+   ========================================================================== */
+.navbar-custom {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 16px 0;
+  background: rgba(7, 9, 14, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-subtle);
+  transition: var(--transition-smooth);
+}
+
+.navbar-custom.scrolled {
+  padding: 10px 0;
+  background: rgba(7, 9, 14, 0.95);
+  border-bottom-color: rgba(230, 57, 70, 0.2);
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.brand-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--crimson-primary), #6B0E17);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 20px rgba(230, 57, 70, 0.5);
+  position: relative;
+}
+
+.brand-name {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #FFFFFF;
+}
+
+.brand-name span {
+  color: var(--crimson-light);
+}
+
+.nav-link-custom {
+  color: #E2E8F0 !important;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: var(--transition-smooth);
+  position: relative;
+}
+
+.nav-link-custom:hover {
+  color: #FFFFFF !important;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+.btn-magnetic {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 28px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease;
+  z-index: 1;
+}
+
+.btn-crimson {
+  background: linear-gradient(135deg, #FF385C 0%, #C1121F 100%) !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 20px rgba(255, 56, 92, 0.45) !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.btn-crimson:hover {
+  box-shadow: 0 8px 30px rgba(255, 56, 92, 0.7) !important;
+  color: #FFFFFF !important;
+  transform: translateY(-2px);
+}
+
+.btn-cyan-outline {
+  background: rgba(0, 245, 212, 0.1) !important;
+  border: 1.5px solid #00F5D4 !important;
+  color: #00F5D4 !important;
+  box-shadow: 0 0 15px rgba(0, 245, 212, 0.25);
+}
+
+.btn-cyan-outline:hover {
+  background: #00F5D4 !important;
+  color: #07090E !important;
+  font-weight: 800 !important;
+  box-shadow: 0 0 25px rgba(0, 245, 212, 0.5) !important;
+  transform: translateY(-2px);
+}
+
+.btn-glass {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.25) !important;
+  color: #FFFFFF !important;
+  backdrop-filter: blur(10px);
+}
+
+.btn-glass:hover {
+  background: rgba(255, 255, 255, 0.2) !important;
+  border-color: rgba(255, 255, 255, 0.45) !important;
+  color: #FFFFFF !important;
+  transform: translateY(-2px);
+}
+
+.btn-sos {
+  background: linear-gradient(135deg, #FF1E38, #C1121F) !important;
+  color: #FFFFFF !important;
+  padding: 10px 22px;
+  border-radius: 10px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  box-shadow: 0 0 22px rgba(255, 30, 56, 0.65) !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  animation: pulse-sos 2s infinite;
+}
+
+@keyframes pulse-sos {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.04); box-shadow: 0 0 30px rgba(255, 30, 56, 0.85); }
+  100% { transform: scale(1); }
+}
+
+/* ==========================================================================
+   Hero Section & Three.js Canvas
+   ========================================================================== */
+.hero-section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 140px 0 80px 0;
+  overflow: hidden;
+}
+
+#canvas-hero-3d {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero-backdrop-gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 75% 45%, rgba(230, 57, 70, 0.18) 0%, transparent 60%),
+              radial-gradient(circle at 20% 80%, rgba(0, 245, 212, 0.08) 0%, transparent 50%),
+              linear-gradient(180deg, transparent 65%, var(--bg-primary) 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 10;
+}
+
+.hero-title {
+  font-size: clamp(2.8rem, 6vw, 4.8rem);
+  line-height: 1.08;
+  font-weight: 900;
+  margin-bottom: 24px;
+}
+
+.hero-description {
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  color: #E2E8F0 !important;
+  max-width: 600px;
+  margin-bottom: 36px;
+  line-height: 1.65;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+.hero-stat-card {
+  background: rgba(14, 20, 32, 0.94);
+  border: 1.5px solid rgba(255, 255, 255, 0.18);
+  border-radius: 16px;
+  padding: 18px 24px;
+  backdrop-filter: blur(14px);
+  min-width: 155px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.6);
+}
+
+.hero-stat-val {
+  font-size: 2.1rem;
+  font-weight: 900;
+  font-family: var(--font-display);
+  line-height: 1.1;
+  margin-bottom: 4px;
+  text-shadow: 0 0 16px currentColor;
+}
+
+.hero-stat-lbl {
+  font-size: 0.88rem;
+  color: #E2E8F0 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   Section Headers
+   ========================================================================== */
+.section-padding {
+  padding: 100px 0;
+  position: relative;
+}
+
+.section-tag {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: #00F5D4 !important;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 12px;
+  display: block;
+  text-shadow: 0 0 12px rgba(0, 245, 212, 0.3);
+}
+
+.section-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800 !important;
+  color: #FFFFFF !important;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+}
+
+.section-subtitle {
+  color: #E2E8F0 !important;
+  font-size: 1.15rem;
+  font-weight: 400;
+  line-height: 1.65;
+  max-width: 640px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* ==========================================================================
+   Live Blood Availability Section (8 Solid High-Contrast Grid Boxes)
+   ========================================================================== */
+.blood-group-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 22px;
+  margin-top: 36px;
+}
+
+.blood-card {
+  background: rgba(14, 20, 34, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  padding: 24px;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+}
+
+.blood-card:hover {
+  border-color: #00F5D4;
+  background: rgba(22, 32, 53, 0.95);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 245, 212, 0.2);
+}
+
+.blood-card.active-selected {
+  border-color: #FF385C;
+  background: rgba(26, 35, 56, 0.95);
+  box-shadow: 0 0 25px rgba(255, 56, 92, 0.35);
+}
+
+.blood-group-symbol {
+  font-size: 2.5rem;
+  font-weight: 800;
+  font-family: var(--font-display);
+  color: #FFFFFF;
+  line-height: 1;
+}
+
+.blood-status-pill {
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: inline-block;
+}
+
+.status-Critical {
+  background: rgba(239, 68, 68, 0.18);
+  color: #F87171;
+  border: 1px solid rgba(248, 113, 113, 0.4);
+}
+
+.status-Moderate {
+  background: rgba(245, 158, 11, 0.18);
+  color: #FBBF24;
+  border: 1px solid rgba(251, 191, 36, 0.4);
+}
+
+.status-Adequate {
+  background: rgba(20, 184, 166, 0.18);
+  color: #2DD4BF;
+  border: 1px solid rgba(45, 212, 191, 0.4);
+}
+
+.status-Surplus {
+  background: rgba(16, 185, 129, 0.18);
+  color: #34D399;
+  border: 1px solid rgba(52, 211, 153, 0.4);
+}
+
+.blood-unit-count {
+  font-size: 2.3rem;
+  font-weight: 800;
+  font-family: var(--font-display);
+  color: #FFFFFF;
+  line-height: 1;
+}
+
+.blood-unit-label {
+  color: #CBD5E1;
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.progress-blood {
+  height: 8px;
+  background: #1E293B;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 16px;
+}
+
+.progress-blood-bar {
+  height: 100%;
+  border-radius: 10px;
+}
+
+.blood-meta-row {
+  margin-top: 14px;
+}
+
+.blood-threshold-text {
+  color: #94A3B8;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.blood-threshold-val {
+  color: #FBBF24;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.blood-sync-text {
+  color: #00F5D4;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   Interactive Blood Compatibility Matrix
+   ========================================================================== */
+.matrix-container {
+  background: rgba(14, 20, 32, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+  padding: 36px;
+  margin-top: 30px;
+}
+
+.selector-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.selector-pill-btn {
+  background: #131B2C;
+  border: 1.5px solid #334155;
+  color: #CBD5E1;
+  padding: 9px 22px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.selector-pill-btn:hover {
+  border-color: #00F5D4;
+  background: #1E293B;
+  color: #FFFFFF;
+}
+
+.selector-pill-btn.active {
+  background: #FF385C;
+  border-color: #FF6B81;
+  color: #FFFFFF;
+  box-shadow: 0 0 20px rgba(255, 56, 92, 0.45);
+}
+
+.compat-box {
+  background: rgba(10, 15, 26, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 28px;
+  min-height: 240px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+}
+
+.compat-box-title {
+  color: #FFFFFF;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.compat-rarity-pill {
+  background: rgba(124, 58, 237, 0.2);
+  color: #C4B5FD;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(167, 139, 250, 0.4);
+  display: inline-block;
+}
+
+.compat-description-text {
+  color: #CBD5E1;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  font-weight: 400;
+}
+
+.compat-subtitle {
+  color: #94A3B8;
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.compat-group-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  font-size: 1.2rem;
+  font-weight: 800;
+  background: rgba(20, 184, 166, 0.18);
+  border: 1.5px solid #14B8A6;
+  color: #2DD4BF;
+  margin: 6px;
+  box-shadow: 0 4px 12px rgba(20, 184, 166, 0.25);
+}
+
+.compat-group-tag.donate-target {
+  background: rgba(220, 38, 38, 0.18);
+  border: 1.5px solid #EF4444;
+  color: #F87171;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.25);
+}
+
+/* ==========================================================================
+   Find a Donor Section & Form Controls
+   ========================================================================== */
+.filter-bar {
+  padding: 20px 24px;
+  margin-bottom: 30px;
+}
+
+.form-label,
+label.form-label,
+label {
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+  font-size: 0.9rem !important;
+  margin-bottom: 6px;
+  letter-spacing: 0.02em;
+  display: inline-block;
+}
+
+.input-futuristic,
+.form-control,
+.form-select {
+  background: #0B101D !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.22) !important;
+  color: #FFFFFF !important;
+  padding: 12px 18px;
+  border-radius: 10px;
+  outline: none;
+  width: 100%;
+  font-size: 0.95rem;
+  transition: var(--transition-smooth);
+}
+
+.input-futuristic:focus,
+.form-control:focus,
+.form-select:focus {
+  border-color: #FF5D6C !important;
+  box-shadow: 0 0 15px rgba(255, 93, 108, 0.35) !important;
+  background: #0D1322 !important;
+  color: #FFFFFF !important;
+}
+
+select.input-futuristic option,
+select.form-select option,
+select option {
+  background-color: #0D1322 !important;
+  color: #FFFFFF !important;
+  padding: 10px;
+}
+
+.input-group-text {
+  background-color: #0B101D !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.22) !important;
+  color: #00F5D4 !important;
+}
+
+.input-futuristic::placeholder,
+.form-control::placeholder {
+  color: #94A3B8 !important;
+  opacity: 1 !important;
+}
+
+.input-futuristic:-ms-input-placeholder,
+.form-control:-ms-input-placeholder {
+  color: #94A3B8 !important;
+}
+
+.input-futuristic::-ms-input-placeholder,
+.form-control::-ms-input-placeholder {
+  color: #94A3B8 !important;
+}
+
+.donor-card {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.donor-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1E293B, #0F172A);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.2rem;
+  color: #FFFFFF !important;
+  border: 2px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+}
+
+/* ==========================================================================
+   Emergency SOS Banner & Modals
+   ========================================================================== */
+.sos-banner {
+  background: linear-gradient(135deg, rgba(230, 57, 70, 0.28) 0%, rgba(13, 18, 29, 0.95) 100%);
+  border: 1px solid rgba(230, 57, 70, 0.55);
+  border-radius: 24px;
+  padding: 48px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 40px rgba(230, 57, 70, 0.25);
+}
+
+.sos-banner h2 {
+  color: #FFFFFF !important;
+  font-weight: 800 !important;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+}
+
+.sos-banner p,
+.sos-banner .text-muted {
+  color: #F8FAFC !important;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+.modal-custom {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(4, 6, 10, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  z-index: 10000;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-custom.active {
+  display: flex;
+}
+
+.modal-content-box {
+  background: #0E1422;
+  border: 1px solid rgba(230, 57, 70, 0.35);
+  border-radius: 24px;
+  width: 100%;
+  max-width: 650px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 35px rgba(230, 57, 70, 0.3);
+  padding: 36px;
+  position: relative;
+  animation: modal-enter 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-content-box p {
+  color: #FFFFFF !important;
+  font-size: 0.98rem !important;
+  font-weight: 500 !important;
+  line-height: 1.65 !important;
+}
+
+@keyframes modal-enter {
+  from { opacity: 0; transform: scale(0.92) translateY(20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  color: #CBD5E1;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-smooth);
+}
+
+.modal-close-btn:hover {
+  background: var(--crimson-primary);
+  color: #FFFFFF;
+}
+
+/* ==========================================================================
+   Digital Donor Card / Certificate Generator
+   ========================================================================== */
+.donor-id-card {
+  background: linear-gradient(135deg, #161D2E 0%, #0D111A 100%);
+  border: 2px solid rgba(230, 57, 70, 0.45);
+  border-radius: 20px;
+  padding: 28px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(230, 57, 70, 0.25);
+}
+
+.donor-id-chip {
+  width: 48px;
+  height: 36px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #D4AF37, #AA771C);
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+  margin-bottom: 16px;
+}
+
+.donor-id-blood {
+  position: absolute;
+  top: 28px;
+  right: 28px;
+  font-size: 3rem;
+  font-weight: 900;
+  color: var(--crimson-light);
+  font-family: var(--font-display);
+  text-shadow: 0 0 20px var(--crimson-glow);
+}
+
+.donor-id-card .text-dim {
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+}
+
+.donor-id-card strong {
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+}
+
+/* ==========================================================================
+   Admin Dashboard Modal & Tables
+   ========================================================================== */
+.admin-tab-nav {
+  display: flex;
+  gap: 10px;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 14px;
+  margin-bottom: 24px;
+}
+
+.admin-tab-btn {
+  background: none;
+  border: none;
+  color: #FFFFFF !important;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.admin-tab-btn:hover {
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.admin-tab-btn.active {
+  background: rgba(230, 57, 70, 0.25);
+  color: #FFFFFF !important;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-table th {
+  text-align: left;
+  padding: 12px 14px;
+  color: #F8FAFC !important;
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.admin-table td {
+  padding: 14px;
+  font-size: 0.92rem;
+  color: #F1F5F9 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.admin-table td .text-muted {
+  color: #FFFFFF !important;
+  font-weight: 600 !important;
+}
+
+.admin-table td .text-dim {
+  color: #FFFFFF !important;
+  font-weight: 600 !important;
+}
+
+/* Toast Notification */
+.toast-container {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.custom-toast {
+  background: #121824;
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 16px 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 320px;
+  animation: toast-in 0.3s ease forwards;
+}
+
+.toast-success { border-left: 4px solid var(--emerald-success); }
+.toast-error { border-left: 4px solid var(--crimson-primary); }
+.toast-info { border-left: 4px solid var(--cyan-accent); }
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateX(40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Footer */
+.footer-custom {
+  background: #040609;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 80px 0 40px 0;
+}
+
+.footer-custom p,
+.footer-custom .text-muted {
+  color: #FFFFFF !important;
+  line-height: 1.6;
+}
+
+.footer-custom a.text-muted {
+  color: #FFFFFF !important;
+  transition: color 0.2s ease;
+}
+
+.footer-custom a.text-muted:hover {
+  color: #00F5D4 !important;
+}
+
+.footer-custom .text-dim {
+  color: #FFFFFF !important;
+}
+
+/* ==========================================================================
+   Role Portal Dashboard Styles (Donor & Hospital Portals)
+   ========================================================================== */
+.portal-card {
+  background: rgba(13, 18, 30, 0.95);
+  border: 1.5px solid rgba(255, 255, 255, 0.18);
+  border-radius: 18px;
+  padding: 24px;
+  transition: var(--transition-smooth);
+}
+
+.portal-stat-metric {
+  font-size: 2.2rem;
+  font-weight: 900;
+  font-family: var(--font-display);
+  line-height: 1;
+}
+
+/* Toggle Switch for Donor Availability */
+.switch-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.switch-toggle {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+}
+
+.switch-toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.switch-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #334155;
+  transition: .3s;
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.switch-slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .3s;
+  border-radius: 50%;
+}
+
+input:checked + .switch-slider {
+  background-color: var(--emerald-success);
+  box-shadow: 0 0 12px var(--emerald-glow);
+}
+
+input:checked + .switch-slider:before {
+  transform: translateX(24px);
+}
+
+/* Status Badges for Requisitions */
+.badge-status-Pending {
+  background: rgba(255, 183, 3, 0.25) !important;
+  color: #FFD166 !important;
+  border: 1px solid rgba(255, 209, 102, 0.6) !important;
+  font-weight: 700 !important;
+}
+
+.badge-status-Approved {
+  background: rgba(0, 245, 212, 0.25) !important;
+  color: #00F5D4 !important;
+  border: 1px solid rgba(0, 245, 212, 0.6) !important;
+  font-weight: 700 !important;
+}
+
+.badge-status-Dispatched {
+  background: rgba(56, 189, 248, 0.25) !important;
+  color: #38BDF8 !important;
+  border: 1px solid rgba(56, 189, 248, 0.6) !important;
+  font-weight: 700 !important;
+}
+
+.badge-status-Fulfilled {
+  background: rgba(46, 196, 182, 0.25) !important;
+  color: #2EC4B6 !important;
+  border: 1px solid rgba(46, 196, 182, 0.6) !important;
+  font-weight: 700 !important;
+}
+
+.badge-status-Cancelled {
+  background: rgba(239, 68, 68, 0.25) !important;
+  color: #FF758F !important;
+  border: 1px solid rgba(255, 117, 143, 0.6) !important;
+  font-weight: 700 !important;
+}
+
+/* Form validation error highlight */
+.input-futuristic.input-error,
+.form-control.input-error {
+  border-color: #EF4444 !important;
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.4) !important;
+}
+
+/* Modal responsive constraints */
+@media (max-width: 767px) {
+  .modal-content-box {
+    padding: 24px 18px;
+    max-height: 94vh;
+  }
+}
+
+/* ==========================================================================
+   13. COMPREHENSIVE PERFORMANCE, ACCESSIBILITY & MOBILE OPTIMIZATIONS
+   ========================================================================== */
+
+/* 1. Fast-Loading Content Visibility (Offscreen DOM Optimization) */
+#compatibility,
+#banks,
+#donor-pass,
+#stats {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 450px;
+}
+
+/* 2. Mobile-Friendly Responsive Calibration */
+@media (max-width: 991px) {
+  /* Mobile Navigation Collapse Drawer */
+  .navbar-collapse {
+    background: rgba(13, 18, 29, 0.97);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border-subtle);
+    border-radius: 16px;
+    padding: 20px;
+    margin-top: 14px;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+  }
+
+  .nav-link-custom {
+    padding: 12px 16px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+  }
+
+  .nav-link-custom:hover {
+    background: rgba(230, 57, 70, 0.12);
+  }
+}
+
+@media (max-width: 768px) {
+  /* iOS Safari Auto-Zoom Prevention (16px rule) */
+  input,
+  select,
+  textarea,
+  .input-futuristic,
+  .form-control {
+    font-size: 16px !important;
+  }
+
+  /* Touch Target Minimum (WCAG 2.2 AA / AAA standard) */
+  .btn,
+  .btn-magnetic,
+  .nav-link-custom,
+  .admin-tab-btn,
+  .modal-close-btn {
+    min-height: 44px;
+    touch-action: manipulation;
+  }
+
+  /* Responsive Hero scaling */
+  .hero-title {
+    font-size: clamp(2rem, 8vw, 3rem);
+  }
+
+  .hero-description {
+    font-size: 1rem;
+  }
+
+  .hero-stat-card {
+    flex: 1 1 calc(50% - 12px);
+    padding: 14px;
+  }
+
+  /* Compatibility Matrix responsive container */
+  .compatibility-grid {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 8px;
+  }
+
+  /* Modals on Mobile */
+  .modal-content-box {
+    padding: 24px 16px;
+    width: 96%;
+    max-height: 92vh;
+    overflow-y: auto;
+    border-radius: 18px;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-stat-card {
+    flex: 1 1 100%;
+  }
+
+  .sos-banner {
+    padding: 24px 18px;
+  }
+
+  .sos-banner h2 {
+    font-size: 1.5rem;
+  }
+}
+
+/* 3. Accessibility & Keyboard Focus States (SEO & Usability) */
+:focus-visible {
+  outline: 2px solid var(--cyan-accent) !important;
+  outline-offset: 3px !important;
+}
+
+.visually-hidden-focusable:not(:focus):not(:focus-within) {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.skip-to-content-btn {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 99999;
+  background: var(--crimson-primary);
+  color: #FFFFFF;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* 4. Smooth Table Scrolling on Touch */
+.table-responsive {
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+.table-responsive::-webkit-scrollbar {
+  height: 6px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+}
+
+/* ==========================================================================
+   Footer & Contrast Utilities
+   ========================================================================== */
+.footer-custom {
+  background: #06090F;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 60px 0 30px;
+  position: relative;
+  z-index: 10;
+}
+
+.footer-custom a.text-muted,
+.footer-custom a {
+  color: #FFFFFF !important;
+  transition: var(--transition-fast);
+}
+
+.footer-custom a.text-muted:hover,
+.footer-custom a:hover {
+  color: #00F5D4 !important;
+  text-decoration: underline;
+}
+
+.footer-custom p {
+  color: #FFFFFF !important;
+}
+
+.form-label {
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+  font-size: 0.92rem !important;
+  margin-bottom: 0.4rem;
+  letter-spacing: 0.02em;
+}
+
+.badge.text-dark,
+.badge-warning.text-dark,
+.badge-info.text-dark {
+  color: inherit !important;
+}
+
+/* Ensure no text in modal or cards drops below readable threshold */
+.small, small {
+  font-size: 0.92rem !important;
+  font-weight: 550 !important;
+  color: #FFFFFF !important;
+}
+
+
